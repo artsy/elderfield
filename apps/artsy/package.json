@@ -1,0 +1,14 @@
+{
+  "name": "artsy",
+  "version": "0.0.1",
+  "description": "An Artsy Alexa skill.",
+  "main": "index.js",
+  "author": "Daniel Doubrovkine <db@artsy.net> (https://www.artsy.net/)",
+  "license": "MIT",
+  "alexa": {
+    "applicationId":"amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
+  },
+  "dependencies": {
+    "alexa-app": "^2.1.0"
+  }
+}

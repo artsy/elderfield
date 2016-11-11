@@ -1,0 +1,15 @@
+{
+    "name": "elderfield",
+    "version": "0.0.1",
+    "private": true,
+    "engines": {
+        "node": "4.3.x",
+        "npm": "4.x.x"
+    },
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "alexa-app-server": "2.2.4"
+    }
+}
