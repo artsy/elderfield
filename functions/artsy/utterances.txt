@@ -1,0 +1,3 @@
+ArtistAgeIntent	When was {Andy Warhol|ARTIST} born?
+ArtistAgeIntent	When was {Warhol|ARTIST} born?
+ArtistAgeIntent	When was {Malevich|ARTIST} born?

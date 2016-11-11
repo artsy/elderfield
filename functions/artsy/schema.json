@@ -1,0 +1,13 @@
+{
+   "intents": [
+      {
+         "intent": "ArtistAgeIntent",
+         "slots": [
+            {
+               "name": "ARTIST",
+               "type": "LITERAL"
+            }
+         ]
+      }
+   ]
+}

@@ -9,6 +9,6 @@
     "applicationId":"amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
   },
   "dependencies": {
-    "alexa-app": "^2.1.0"
+    "alexa-app": "^2.3.4"
   }
 }

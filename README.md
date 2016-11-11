@@ -6,6 +6,10 @@ An Artsy [Amazon Alexa](https://developer.amazon.com/alexa) [skill](apps/artsy) 
 
 Run `npm install`, then `npm start`. Browse to http://localhost:8080. Try http://localhost:8080/alexa/artsy.
 
+#### Deploy to AWS Lambda
+
+See [DEPLOYMENT](DEPLOYMENT.md).
+
 #### License
 
 Copyright (c) 2016 Artsy
