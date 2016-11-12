@@ -11,3 +11,7 @@ build:
 # Deploy to AWS Lambda
 deploy: build
 	apex deploy
+
+# Test
+test: build
+	mocha

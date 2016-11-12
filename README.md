@@ -1,5 +1,7 @@
 ### Elderfield
 
+[![Build Status](https://travis-ci.org/dblock/elderfield.svg?branch=master)](https://travis-ci.org/dblock/elderfield)
+
 An Artsy [Amazon Alexa](https://developer.amazon.com/alexa) [skill](apps/artsy) built with [alexa-app](https://www.npmjs.com/package/alexa-app) hosted instead an [alexa-app-server](https://github.com/matt-kruse/alexa-app-server).
 
 #### Getting Started

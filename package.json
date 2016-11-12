@@ -7,9 +7,15 @@
         "npm": "4.x.x"
     },
     "scripts": {
-        "start": "node server.js"
+        "start": "make s",
+        "test": "make test"
     },
     "dependencies": {
         "alexa-app-server": "2.2.4"
+    },
+    "devDependencies": {
+        "mocha": "3.1.2",
+        "chai": "3.5.0",
+        "chai-http": "3.0.0"
     }
 }
