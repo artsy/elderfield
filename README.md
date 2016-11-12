@@ -1,6 +1,6 @@
 # Elderfield
 
-[![Build Status](https://travis-ci.org/dblock/elderfield.svg?branch=master)](https://travis-ci.org/dblock/elderfield)
+[![Build Status](https://travis-ci.org/artsy/elderfield.svg?branch=master)](https://travis-ci.org/artsy/elderfield)
 
 ![](images/echo-dot-2nd-gen.jpg)
 
