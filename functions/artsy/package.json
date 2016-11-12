@@ -9,6 +9,9 @@
     "applicationId":"amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
   },
   "dependencies": {
-    "alexa-app": "^2.3.4"
+    "alexa-app": "^2.3.4",
+    "traverson": "3.2.0",
+    "traverson-hal": "4.1.1",
+    "superagent": "2.3.0"
   }
 }

@@ -1,0 +1,29 @@
+{
+  "session": {
+    "sessionId": "SessionId.ca05ce5f-3b70-49be-84b5-bdc3086533fb",
+    "application": {
+      "applicationId": "amzn1.ask.skill.42004f60-1c66-4c61-8c5d-9006303e6ec4"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.AG52PQPYVYLXIZNM64EF2I2NMZH4R5D56T5HBBBRFP65NAI6YOPRJKIFMZ7ILJEKZRGZWTXHPSV4T5X7XKKNO4N7ANBJ6WVDCPYVNDDRPZ2CZJ7NAWOAN6U7HE7BMA4DEXBM6LFEVPITNCSMXKOZYRUOTB3QR2LKNNJBGW4RKFAYYLTLTGRHMAD3GLU6ARQUIV3FGI75A7C4LGA"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.624219fd-68b1-41ba-b02b-a1bf54dfe180",
+    "locale": "en-US",
+    "timestamp": "2016-11-12T22:03:54Z",
+    "intent": {
+      "name": "ArtistAgeIntent",
+      "slots": {
+        "ARTIST": {
+          "name": "ARTIST",
+          "value": "Andy Warhol"
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
