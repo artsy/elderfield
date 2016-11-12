@@ -50,6 +50,10 @@ $ make deploy
    • function created          env= function=artsy name=alexa-artsy_artsy version=1
 ```
 
+### Triggers
+
+Go to the Lambda function and choose _Triggers_. Add an `Alexa Skills Kit` trigger or you'll get an obscure `Please make sure that "Alexa Skills Kit" is selected for the event source type of arn:...` error.
+
 ### Test
 
 ```
