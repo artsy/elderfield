@@ -17,7 +17,7 @@ app.intent('ArtistAgeIntent', {
             "ARTIST": "LITERAL"
         },
         "utterances": [
-            "When was {Andy Warhol|Warhol|Malevich|ARTIST} born"
+            "{When|Where} was {the artist|artist|} {Andy Warhol|Warhol|Malevich|ARTIST} born"
         ]
     },
     function(req, res) {
@@ -51,11 +51,14 @@ app.intent('ArtistAgeIntent', {
                                             }
                                         })
                                         .getResource(function(error, artist) {
-                                            if (artist && artist.birthday) {
-                                                res.say('The artist ' + artist.name + ' was born in ' + artist.birthday);
+                                            if (artist && artist.birthday && artist.birthday != "") {
+                                                message = 'The artist ' + artist.name + ' was born in ';
+                                                if (artist.hometown && artist.hometown != "") { message += artist.hometown + ' in '; }
+                                                message += artist.birthday;
+                                                res.say(message);
                                                 res.send();
                                             } else {
-                                                res.say("I don't know when the artist " + req.slot('ARTIST') + " was born.");
+                                                res.say("I don't know when or where the artist " + req.slot('ARTIST') + " was born.");
                                                 res.send();
                                             }
                                         });

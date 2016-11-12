@@ -9,7 +9,7 @@ describe('artsy alexa', function() {
                 expect(res.status).to.equal(200);
                 var data = JSON.parse(res.text);
                 expect(data.response.outputSpeech.type).to.equal('SSML')
-                expect(data.response.outputSpeech.ssml).to.equal('<speak>The artist Andy Warhol was born in 1928</speak>')
+                expect(data.response.outputSpeech.ssml).to.equal('<speak>The artist Andy Warhol was born in Pittsburgh, Pennsylvania in 1928</speak>')
                 done();
             });
     });
