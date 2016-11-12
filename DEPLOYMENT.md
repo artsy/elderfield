@@ -53,7 +53,7 @@ $ make deploy
 ### Test
 
 ```
-apex invoke artsy < test/LaunchRequest.json
+apex invoke artsy < test/functions/artsy/LaunchRequest.json
 ```
 
 This should return a welcome message.

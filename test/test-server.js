@@ -1,9 +1,4 @@
-var chai = require('chai');
-var expect = chai.expect;
-var chaiHttp = require('chai-http');
-var server = require('../server');
-
-chai.use(chaiHttp);
+require('./setup');
 
 describe('alexa-app-server', function() {
   it('should respond as Artsy Alexa', function(done) {
