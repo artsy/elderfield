@@ -52,8 +52,16 @@ app.intent('ArtistAgeIntent', {
                                         })
                                         .getResource(function(error, artist) {
                                             if (artist && artist.birthday && artist.birthday != "") {
-                                                message = 'The artist ' + artist.name + ' was born in ';
-                                                if (artist.hometown && artist.hometown != "") { message += artist.hometown + ' in '; }
+                                                var message = "";
+                                                if (artist.nationality && artist.nationality != "") {
+                                                    message = artist.nationality;
+                                                } else {
+                                                    message = "The"
+                                                }
+                                                message += " artist " + artist.name + " was born in ";
+                                                if (artist.hometown && artist.hometown != "") {
+                                                    message += artist.hometown + ' in ';
+                                                }
                                                 message += artist.birthday;
                                                 res.say(message);
                                                 res.send();
