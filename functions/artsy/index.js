@@ -1,10 +1,7 @@
 var alexa = require('alexa-app');
 var app = new alexa.app('artsy');
-var superagent = require('superagent');
-var traverson = require('traverson');
-var JsonHalAdapter = require('traverson-hal');
-traverson.registerMediaType(JsonHalAdapter.mediaType, JsonHalAdapter);
-var api = traverson.from('https://api.artsy.net/api').jsonHal();
+var xapp = require('./models/xapp');
+var api = require('./models/api');
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
@@ -17,58 +14,34 @@ app.intent('ArtistAgeIntent', {
             "ARTIST": "LITERAL"
         },
         "utterances": [
-            "When was {Andy Warhol|Warhol|Malevich|ARTIST} born"
+            "{When|Where} was {the artist|artist|} {Andy Warhol|Warhol|Malevich|ARTIST} born"
         ]
     },
     function(req, res) {
-
-        superagent
-            .post('https://api.artsy.net/api/tokens/xapp_token')
-            .send({ client_id: process.env["ARTSY_CLIENT_ID"], client_secret: process.env["ARTSY_CLIENT_SECRET"] })
-            .end(function(err, rc) {
-                if (rc && rc.body.token) {
-                    xappToken = rc.body.token;
-
-                    api.newRequest()
-                        .follow('search')
-                        .withRequestOptions({
-                            headers: {
-                                'X-Xapp-Token': xappToken,
-                                'Accept': 'application/vnd.artsy-v2+json'
-                            }
-                        })
-                        .withTemplateParameters({ q: req.slot('ARTIST') })
-                        .getResource(function(error, results) {
-                                var result = null;
-                                if (results && results._embedded) { result = results._embedded.results[0]; }
-                                if (result && result.type == 'Artist') {
-                                    api.newRequest()
-                                        .from(result._links.self.href)
-                                        .withRequestOptions({
-                                            headers: {
-                                                'X-Xapp-Token': xappToken,
-                                                'Accept': 'application/vnd.artsy-v2+json'
-                                            }
-                                        })
-                                        .getResource(function(error, artist) {
-                                            if (artist && artist.birthday) {
-                                                res.say('The artist ' + artist.name + ' was born in ' + artist.birthday);
-                                                res.send();
-                                            } else {
-                                                res.say("I don't know when the artist " + req.slot('ARTIST') + " was born.");
-                                                res.send();
-                                            }
-                                        });
-                                } else {
-                                    res.say("I don't know anything about the artist " + req.slot('ARTIST'));
-                                    res.send();
-                                }
-                        });
+        var artist = req.slot('ARTIST');
+        api.instance().then(function(api) {
+            api.findFirst(artist, "Artist").then(function(artist) {
+                var message = "";
+                if (artist.nationality && artist.nationality != "") {
+                    message = artist.nationality;
                 } else {
-                    res.say("I can't connect to Artsy.");
-                    res.send();
+                    message = "The"
                 }
+                message += " artist " + artist.name + " was born in ";
+                if (artist.hometown && artist.hometown != "") {
+                    message += artist.hometown + ' in ';
+                }
+                message += artist.birthday;
+                res.say(message);
+                res.send();
+            }).fail(function(error) {
+                res.say("I couldn't find an artist named " + artist + ".");
+                res.send();
             });
+        }).fail(function(error) {
+            res.say("I couldn't connect to Artsy.");
+            res.send();
+        });
 
         return false;
     }

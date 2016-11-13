@@ -12,7 +12,9 @@ Run `npm install`, then `npm start`. Browse to http://localhost:8080. Try http:/
 
 #### Current Skills
 
-* Ask Artsy when was Shepard Fairey born?
+* Alexa, ask Artsy when was Shepard Fairey born?
+* Alexa, ask Artsy where was artist Shepard Fairey born?
+* Alexa, ask Artsy when and where was artist Andy Warhol born?
 
 ### Deploy to AWS Lambda
 
