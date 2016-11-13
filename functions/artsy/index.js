@@ -2,6 +2,7 @@ var alexa = require('alexa-app');
 var app = new alexa.app('artsy');
 var xapp = require('./models/xapp');
 var api = require('./models/api');
+var _ = require('underscore');
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
@@ -18,28 +19,29 @@ app.intent('ArtistAgeIntent', {
         ]
     },
     function(req, res) {
-        var artist = req.slot('ARTIST');
+        var artistName = req.slot('ARTIST');
         api.instance().then(function(api) {
-            api.findFirst(artist, "Artist").then(function(artist) {
-                var message = "";
-                if (artist.nationality && artist.nationality != "") {
-                    message = artist.nationality;
+            api.findFirst(artistName, "Artist").then(function(artist) {
+                if (artist.hometown || artist.birthday) {
+                    var message = _.compact([
+                        artist.nationality && artist.nationality != "" ? artist.nationality : 'The',
+                        "artist",
+                        artist.name,
+                        "was born",
+                        artist.hometown && artist.hometown != "" ? "in " + _.first(artist.hometown.split(',')) : null,
+                        artist.birthday && artist.birthday != "" ? "in " + _.last(artist.birthday.split(',')) : null
+                    ]).join(' ');
+                    res.say(message);
                 } else {
-                    message = "The"
+                    res.say("Sorry, I don't know when or where artist " + artistName + " was born.");
                 }
-                message += " artist " + artist.name + " was born in ";
-                if (artist.hometown && artist.hometown != "") {
-                    message += artist.hometown + ' in ';
-                }
-                message += artist.birthday;
-                res.say(message);
                 res.send();
             }).fail(function(error) {
-                res.say("I couldn't find an artist named " + artist + ".");
+                res.say("Sorry, I couldn't find an artist named " + artistName + ".");
                 res.send();
             });
         }).fail(function(error) {
-            res.say("I couldn't connect to Artsy.");
+            res.say("Sorry, I couldn't connect to Artsy.");
             res.send();
         });
 

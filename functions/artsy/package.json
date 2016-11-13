@@ -13,6 +13,7 @@
     "alexa-app": "^2.3.4",
     "traverson": "3.2.0",
     "traverson-hal": "4.1.1",
-    "superagent": "2.3.0"
+    "superagent": "2.3.0",
+    "underscore": "1.8.3"
   }
 }
