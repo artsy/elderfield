@@ -10,6 +10,7 @@ This project is named after curator [John Elderfield](https://en.wikipedia.org/w
 
 ### Current Skills
 
+* Alexa, ask Artsy where Norman Rockwell is from?
 * Alexa, ask Artsy when was Shepard Fairey born?
 * Alexa, ask Artsy where was artist Shepard Fairey born?
 * Alexa, ask Artsy when and where was artist Andy Warhol born?

@@ -1,6 +1,15 @@
 ArtistAgeIntent	When was the artist {Andy Warhol|ARTIST} born
 ArtistAgeIntent	Where was the artist {Warhol|ARTIST} born
-ArtistAgeIntent	When was artist {Malevich|ARTIST} born
-ArtistAgeIntent	Where was artist {Andy Warhol|ARTIST} born
-ArtistAgeIntent	When was {Warhol|ARTIST} born
-ArtistAgeIntent	Where was {Malevich|ARTIST} born
+ArtistAgeIntent	When and where was the artist {Malevich|ARTIST} born
+ArtistAgeIntent	Where and when was the artist {Andy Warhol|ARTIST} born
+ArtistAgeIntent	When was artist {Warhol|ARTIST} born
+ArtistAgeIntent	Where was artist {Malevich|ARTIST} born
+ArtistAgeIntent	When and where was artist {Andy Warhol|ARTIST} born
+ArtistAgeIntent	Where and when was artist {Warhol|ARTIST} born
+ArtistAgeIntent	When was {Malevich|ARTIST} born
+ArtistAgeIntent	Where was {Andy Warhol|ARTIST} born
+ArtistAgeIntent	When and where was {Warhol|ARTIST} born
+ArtistAgeIntent	Where and when was {Malevich|ARTIST} born
+ArtistAgeIntent	Where is the artist {Andy Warhol|ARTIST} from
+ArtistAgeIntent	Where is artist {Warhol|ARTIST} from
+ArtistAgeIntent	Where is {Malevich|ARTIST} from

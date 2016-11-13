@@ -1,19 +1,19 @@
 {
-  "name": "artsy",
-  "version": "0.0.1",
-  "description": "An Artsy Alexa skill.",
-  "main": "index.js",
-  "author": "Daniel Doubrovkine <db@artsy.net> (https://www.artsy.net/)",
-  "license": "MIT",
-  "alexa": {
-    "applicationId":"amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
-  },
-  "dependencies": {
-    "q": "1.4.1",
-    "alexa-app": "^2.3.4",
-    "traverson": "3.2.0",
-    "traverson-hal": "4.1.1",
-    "superagent": "2.3.0",
-    "underscore": "1.8.3"
-  }
+    "name": "artsy",
+    "version": "0.0.1",
+    "description": "An Artsy Alexa skill.",
+    "main": "index.js",
+    "author": "Daniel Doubrovkine <db@artsy.net> (https://www.artsy.net/)",
+    "license": "MIT",
+    "alexa": {
+        "applicationId": "amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
+    },
+    "dependencies": {
+        "q": "1.4.1",
+        "alexa-app": "^2.3.4",
+        "traverson": "3.2.0",
+        "traverson-hal": "4.1.1",
+        "superagent": "2.3.0",
+        "underscore": "1.8.3"
+    }
 }
