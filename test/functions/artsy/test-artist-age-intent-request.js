@@ -41,4 +41,18 @@ describe('artsy alexa', function() {
                 done();
             });
     });
+    it('supports artists without dates', function(done) {
+        var artistAgeIntentRequest = require('./ArtistAgeIntentRequest.json');
+        artistAgeIntentRequest.request.intent.slots.ARTIST.value = 'John Doe'
+        chai.request(server)
+            .post('/alexa/artsy')
+            .send(artistAgeIntentRequest)
+            .end(function(err, res) {
+                expect(res.status).to.equal(200);
+                var data = JSON.parse(res.text);
+                expect(data.response.outputSpeech.type).to.equal('SSML')
+                expect(data.response.outputSpeech.ssml).to.equal("<speak>Sorry, I don't know when or where artist John Doe was born.</speak>")
+                done();
+            });
+    });
 });

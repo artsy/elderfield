@@ -19,9 +19,9 @@ app.intent('ArtistAgeIntent', {
         ]
     },
     function(req, res) {
-        var artist = req.slot('ARTIST');
+        var artistName = req.slot('ARTIST');
         api.instance().then(function(api) {
-            api.findFirst(artist, "Artist").then(function(artist) {
+            api.findFirst(artistName, "Artist").then(function(artist) {
                 if (artist.hometown || artist.birthday) {
                     var message = _.compact([
                         artist.nationality && artist.nationality != "" ? artist.nationality : 'The',
@@ -33,11 +33,11 @@ app.intent('ArtistAgeIntent', {
                     ]).join(' ');
                     res.say(message);
                 } else {
-                    res.say("Sorry, I couldn't find where or when artist " + artist + " was born.");
+                    res.say("Sorry, I don't know when or where artist " + artistName + " was born.");
                 }
                 res.send();
             }).fail(function(error) {
-                res.say("Sorry, I couldn't find an artist named " + artist + ".");
+                res.say("Sorry, I couldn't find an artist named " + artistName + ".");
                 res.send();
             });
         }).fail(function(error) {
