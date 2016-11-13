@@ -2,23 +2,25 @@
 
 [![Build Status](https://travis-ci.org/artsy/elderfield.svg?branch=master)](https://travis-ci.org/artsy/elderfield)
 
-![](images/echo-dot-2nd-gen.jpg)
+[![](images/echo-dot-2nd-gen.jpg)](https://developer.amazon.com/alexa)
 
-An Artsy [Amazon Alexa](https://developer.amazon.com/alexa) [skill](apps/artsy) built with [alexa-app](https://www.npmjs.com/package/alexa-app) hosted inside an [alexa-app-server](https://github.com/matt-kruse/alexa-app-server).
+An Amazon Alexa [skill](functions/artsy) for [Artsy](https://www.artsy.net).
 
-### Getting Started
+This project is named after curator [John Elderfield](https://en.wikipedia.org/wiki/John_Elderfield).
 
-Run `npm install`, then `npm start`. Browse to http://localhost:8080. Try http://localhost:8080/alexa/artsy.
-
-#### Current Skills
+### Current Skills
 
 * Alexa, ask Artsy when was Shepard Fairey born?
 * Alexa, ask Artsy where was artist Shepard Fairey born?
 * Alexa, ask Artsy when and where was artist Andy Warhol born?
 
-### Deploy to AWS Lambda
+### Deploying to AWS Lambda
 
 See [DEPLOYMENT](DEPLOYMENT.md).
+
+### Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md).
 
 ### License
 
