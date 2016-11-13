@@ -61,4 +61,25 @@ Api.prototype.search = function(q) {
   return this.follow("search", { q: q });
 }
 
+Api.prototype.findFirst = function(name, type) {
+  var api = this;
+  var deferred = Q.defer();
+  api.search(name).then(function(results) {
+    var result = results._embedded.results[0];
+    if (result && result.type == type) {
+      // TODO: iterate through results
+      return api.from(result._links.self.href, null).then(function(result) {
+        deferred.resolve(result);
+      }).fail(function(error) {
+        deferred.reject(error);
+      });
+    } else {
+      deferred.reject("No " + type + " results.")
+    }
+  }).fail(function(error) {
+    deferred.reject(error);
+  });
+  return deferred.promise;
+}
+
 module.exports = Api;
