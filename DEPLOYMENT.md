@@ -78,7 +78,7 @@ This should return a welcome message.
 
 ### Production Deployment
 
-You need Artsy Alexa `project.production.json` and access to the Artsy AWS infrastructure. If you work at Artsy, you will find it in 1Password in the Engineering vault under `Artsy Alexa Lambda project.production.json`.
+You need Artsy Alexa `project.production.json` and access to the Artsy AWS infrastructure. If you work at Artsy, you will find it in 1Password in the Engineering vault under `elderfield (Alexa) project.production.json`.
 
 ```
 make production-deploy
