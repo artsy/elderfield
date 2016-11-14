@@ -1,12 +1,12 @@
 require('../../setup');
 
 describe('artsy alexa', function() {
-    artistAboutIntentRequest = function(artistName, cb) {
-        var artistAboutIntentRequest = require('./ArtistAboutIntentRequest.json');
-        artistAboutIntentRequest.request.intent.slots.ARTIST.value = artistName;
+    aboutIntentRequest = function(artistName, cb) {
+        var aboutIntentRequest = require('./AboutIntentRequest.json');
+        aboutIntentRequest.request.intent.slots.VALUE.value = artistName;
         chai.request(server)
             .post('/alexa/artsy')
-            .send(artistAboutIntentRequest)
+            .send(aboutIntentRequest)
             .end(function(err, res) {
                 expect(res.status).to.equal(200);
                 var data = JSON.parse(res.text);
@@ -16,9 +16,16 @@ describe('artsy alexa', function() {
     }
 
     it('speaks about an artist', function(done) {
-        artistAboutIntentRequest('Andy Warhol', function(ssml) {
+        aboutIntentRequest('Andy Warhol', function(ssml) {
             expect(ssml).to.startWith('<speak>Obsessed with celebrity');
             expect(ssml).to.endWith('taken up by major contemporary artists Richard Prince, Takashi Murakami, and Jeff Koons, among countless others.</speak>');
+            done();
+        });
+    });
+
+    it('speaks about artsy', function(done) {
+        aboutIntentRequest('artsy', function(ssml) {
+            expect(ssml).to.startWith('<speak>Artsy’s mission is ');
             done();
         });
     });

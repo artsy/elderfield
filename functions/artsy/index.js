@@ -11,14 +11,41 @@ app.launch(function(req, res) {
     res.say("Welcome to Artsy!");
 });
 
-app.intent('WhatIsArtsyIntent', {
+app.intent('AboutIntent', {
+        "slots": {
+            "VALUE": "LITERAL"
+        },
         "utterances": [
             "what is artsy",
-            "about artsy"
+            "{to tell me|} about {the artist|artist|} {kasimir malevich|malevich|VALUE}"
         ]
     },
     function(req, res) {
-        res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
+        var value = req.slot('VALUE');
+
+        if (value == 'artsy') {
+            return res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
+        }
+
+        api.instance().then(function(api) {
+            api.matchArtist(value).then(function(artist) {
+                var message = artist.blurb || artist.biography
+                if (message) {
+                    res.say(removeMd(message));
+                } else {
+                    res.say("Sorry, I don't know much about " + value + ".");
+                }
+                res.send();
+            }).fail(function(error) {
+                res.say("Sorry, I couldn't find an artist " + value + ".");
+                res.send();
+            });
+        }).fail(function(error) {
+            res.say("Sorry, I couldn't connect to Artsy.");
+            res.send();
+        });
+
+        return false;
     }
 );
 
@@ -49,38 +76,6 @@ app.intent('ArtistBornIntent', {
                         artist.deathday ? "and died in " + _.last(artist.deathday.split(',')) : null
                     ]).join(' ');
                     res.say(message);
-                } else {
-                    res.say("Sorry, I don't know much about the artist " + artistName + ".");
-                }
-                res.send();
-            }).fail(function(error) {
-                res.say("Sorry, I couldn't find an artist named " + artistName + ".");
-                res.send();
-            });
-        }).fail(function(error) {
-            res.say("Sorry, I couldn't connect to Artsy.");
-            res.send();
-        });
-
-        return false;
-    }
-);
-
-app.intent('ArtistAboutIntent', {
-        "slots": {
-            "ARTIST": "LITERAL"
-        },
-        "utterances": [
-            "{to tell me|} about {the artist|artist|} {kasimir malevich|malevich|ARTIST}"
-        ]
-    },
-    function(req, res) {
-        var artistName = req.slot('ARTIST');
-        api.instance().then(function(api) {
-            api.matchArtist(artistName).then(function(artist) {
-                var message = artist.blurb || artist.biography
-                if (message) {
-                    res.say(removeMd(message));
                 } else {
                     res.say("Sorry, I don't know much about the artist " + artistName + ".");
                 }
