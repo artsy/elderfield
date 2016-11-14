@@ -29,6 +29,13 @@ describe('artsy alexa', function() {
         });
     });
 
+    it('supports artists without nationality', function(done) {
+        artistBornIntentRequest('Oleg Vassiliev', function(ssml) {
+            expect(ssml).to.equal('<speak>The artist Oleg Vassiliev was born in 1931</speak>');
+            done();
+        });
+    });
+
     it('only finds the first artist', function(done) {
         artistBornIntentRequest('@#%&*#$%', function(ssml) {
             expect(ssml).to.equal("<speak>Sorry, I couldn't find an artist named @#%&*#$%.</speak>");

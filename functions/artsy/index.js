@@ -38,12 +38,12 @@ app.intent('ArtistBornIntent', {
             api.matchArtist(artistName).then(function(artist) {
                 if (artist.hometown || artist.birthday) {
                     var message = _.compact([
-                        artist.nationality && artist.nationality != "" ? artist.nationality : 'The',
+                        artist.nationality ? artist.nationality : 'The',
                         "artist",
                         artist.name,
                         "was born",
-                        artist.hometown && artist.hometown != "" ? "in " + _.first(artist.hometown.split(',')) : null,
-                        artist.birthday && artist.birthday != "" ? "in " + _.last(artist.birthday.split(',')) : null
+                        artist.hometown ? "in " + _.first(artist.hometown.split(',')) : null,
+                        artist.birthday ? "in " + _.last(artist.birthday.split(',')) : null
                     ]).join(' ');
                     res.say(message);
                 } else {
