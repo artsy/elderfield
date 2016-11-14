@@ -1,13 +1,10 @@
 var xapp = require('./xapp')
-var traverson = require('traverson');
-var JsonHalAdapter = require('traverson-hal');
-traverson.registerMediaType(JsonHalAdapter.mediaType, JsonHalAdapter);
 var Q = require('q');
 var _ = require('underscore')
+var superagent = require('superagent')
 
 function Api(xappToken) {
     this.xappToken = xappToken;
-    this.api = traverson.from('https://api.artsy.net/api').jsonHal();
 }
 
 Api.instance = function() {
@@ -20,63 +17,30 @@ Api.instance = function() {
     return deferred.promise;
 }
 
-Api.prototype.newRequest = function() {
-    return this.api.newRequest()
-        .withRequestOptions({
-            headers: {
-                'X-Xapp-Token': this.xappToken,
-                'Accept': 'application/vnd.artsy-v2+json'
-            }
-        });
-}
-
-Api.prototype.follow = function(url, params) {
+Api.prototype.get = function(url, params) {
     var deferred = Q.defer();
-    var request = this.newRequest().follow(url)
-    if (params) request = request.withTemplateParameters(params);
-    request.getResource(function(error, results) {
-        if (error) {
-            deferred.reject(error);
+    var request = superagent.get(url).set('X-Xapp-Token', this.xappToken);
+    if (params) request = request.query(params);
+    request.end(function(error, results) {
+        if (error || !results) {
+            deferred.reject(error || 'Unexpected error.');
         } else {
-            deferred.resolve(results);
+            deferred.resolve(results.body);
         }
     });
     return deferred.promise;
 }
 
-Api.prototype.from = function(url, params) {
-    var deferred = Q.defer();
-    var request = this.newRequest().from(url)
-    if (params) request = request.withTemplateParameters(params);
-    request.getResource(function(error, results) {
-        if (error) {
-            deferred.reject(error);
-        } else {
-            deferred.resolve(results);
-        }
-    });
-    return deferred.promise;
-}
-
-Api.prototype.search = function(q) {
-    return this.follow("search", { q: q });
-}
-
-Api.prototype.findFirst = function(name, type) {
+Api.prototype.matchArtist = function(name) {
     var api = this;
     var deferred = Q.defer();
-    api.from('https://api.artsy.net/api/search{?q,size}', { q: name, size: 1 }).then(function(results) {
-        var result = _.find(results._embedded.results, function(result) {
-            return result.type == type
-        });
+    // TODO: use APIv2 /search when it's backed by ElasticSearch
+    api.get('https://api.artsy.net/api/v1/match/artists', { term: name, size: 1 }).then(function(results) {
+        var result = _.first(results)
         if (result) {
-            return api.from(result._links.self.href, null).then(function(result) {
-                deferred.resolve(result);
-            }).fail(function(error) {
-                deferred.reject(error);
-            });
+            deferred.resolve(api.get('https://api.artsy.net/api/v1/artist/' + result._id, { }));
         } else {
-            deferred.reject("No " + type + " results.")
+            deferred.reject("No matching artists.")
         }
     }).fail(function(error) {
         deferred.reject(error);

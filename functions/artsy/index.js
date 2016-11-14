@@ -10,19 +10,32 @@ app.launch(function(req, res) {
     res.say("Welcome to Artsy!");
 });
 
-app.intent('ArtistAgeIntent', {
+app.intent('WhatIsArtsyIntent', {
+        "utterances": [
+            "what is artsy",
+            "about artsy"
+        ]
+    },
+    function(req, res) {
+        res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
+    }
+);
+
+app.intent('ArtistBornIntent', {
         "slots": {
             "ARTIST": "LITERAL"
         },
         "utterances": [
-            "{When|Where|When and where|Where and when} was {the artist|artist|} {Andy Warhol|Warhol|Malevich|ARTIST} born",
-            "{Where} is {the artist|artist|} {Andy Warhol|Warhol|Malevich|ARTIST} from"
+            "{when|where|when and where|where and when} was {the artist|artist|} {kasimir malevich|malevich|ARTIST} born",
+            "{when|where|when and where|where and when} {the artist|artist|} {kasimir malevich|malevich|ARTIST} was born",
+            "{where} is {the artist|artist|} {kasimir malevich|malevich|ARTIST} from",
+            "{where} {the artist|artist|} {kasimir malevich|malevich|ARTIST} is from"
         ]
     },
     function(req, res) {
         var artistName = req.slot('ARTIST');
         api.instance().then(function(api) {
-            api.findFirst(artistName, "Artist").then(function(artist) {
+            api.matchArtist(artistName).then(function(artist) {
                 if (artist.hometown || artist.birthday) {
                     var message = _.compact([
                         artist.nationality && artist.nationality != "" ? artist.nationality : 'The',
