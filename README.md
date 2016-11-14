@@ -16,6 +16,7 @@ This project is named after curator [John Elderfield](https://en.wikipedia.org/w
 * Alexa, ask Artsy when was Shepard Fairey born
 * Alexa, ask Artsy where was artist Shepard Fairey born
 * Alexa, ask Artsy when and where was artist Andy Warhol born
+* Alexa, ask Artsy when did Andy Warhol die
 
 ### Deploying to AWS Lambda
 
