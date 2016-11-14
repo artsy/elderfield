@@ -33,3 +33,9 @@ ArtistBornIntent	where is {malevich|ARTIST} from
 ArtistBornIntent	where the artist {kasimir malevich|ARTIST} is from
 ArtistBornIntent	where artist {malevich|ARTIST} is from
 ArtistBornIntent	where {kasimir malevich|ARTIST} is from
+ArtistAboutIntent	to tell me about the artist {malevich|ARTIST}
+ArtistAboutIntent	about the artist {kasimir malevich|ARTIST}
+ArtistAboutIntent	to tell me about artist {malevich|ARTIST}
+ArtistAboutIntent	about artist {kasimir malevich|ARTIST}
+ArtistAboutIntent	to tell me about {malevich|ARTIST}
+ArtistAboutIntent	about {kasimir malevich|ARTIST}

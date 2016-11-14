@@ -3,6 +3,7 @@ var app = new alexa.app('artsy');
 var xapp = require('./models/xapp');
 var api = require('./models/api');
 var _ = require('underscore');
+var removeMd = require('remove-markdown');
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
@@ -48,6 +49,38 @@ app.intent('ArtistBornIntent', {
                         artist.deathday ? "and died in " + _.last(artist.deathday.split(',')) : null
                     ]).join(' ');
                     res.say(message);
+                } else {
+                    res.say("Sorry, I don't know much about the artist " + artistName + ".");
+                }
+                res.send();
+            }).fail(function(error) {
+                res.say("Sorry, I couldn't find an artist named " + artistName + ".");
+                res.send();
+            });
+        }).fail(function(error) {
+            res.say("Sorry, I couldn't connect to Artsy.");
+            res.send();
+        });
+
+        return false;
+    }
+);
+
+app.intent('ArtistAboutIntent', {
+        "slots": {
+            "ARTIST": "LITERAL"
+        },
+        "utterances": [
+            "{to tell me|} about {the artist|artist|} {kasimir malevich|malevich|ARTIST}"
+        ]
+    },
+    function(req, res) {
+        var artistName = req.slot('ARTIST');
+        api.instance().then(function(api) {
+            api.matchArtist(artistName).then(function(artist) {
+                var message = artist.blurb || artist.biography
+                if (message) {
+                    res.say(removeMd(message));
                 } else {
                     res.say("Sorry, I don't know much about the artist " + artistName + ".");
                 }

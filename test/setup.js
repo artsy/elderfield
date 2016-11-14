@@ -1,6 +1,6 @@
 chai = require('chai');
 expect = chai.expect;
-chaiHttp = require('chai-http');
-server = require('../server');
+chai.use(require('chai-string'));
+chai.use(require('chai-http'));
 
-chai.use(chaiHttp);
+server = require('../server');

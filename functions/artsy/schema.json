@@ -12,6 +12,15 @@
                "type": "LITERAL"
             }
          ]
+      },
+      {
+         "intent": "ArtistAboutIntent",
+         "slots": [
+            {
+               "name": "ARTIST",
+               "type": "LITERAL"
+            }
+         ]
       }
    ]
 }
