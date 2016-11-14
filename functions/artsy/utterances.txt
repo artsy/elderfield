@@ -1,5 +1,10 @@
-WhatIsArtsyIntent	what is artsy
-WhatIsArtsyIntent	about artsy
+AboutIntent	what is artsy
+AboutIntent	to tell me about the artist {kasimir malevich|VALUE}
+AboutIntent	about the artist {malevich|VALUE}
+AboutIntent	to tell me about artist {kasimir malevich|VALUE}
+AboutIntent	about artist {malevich|VALUE}
+AboutIntent	to tell me about {kasimir malevich|VALUE}
+AboutIntent	about {malevich|VALUE}
 ArtistBornIntent	when was the artist {kasimir malevich|ARTIST} born
 ArtistBornIntent	where was the artist {malevich|ARTIST} born
 ArtistBornIntent	when and where was the artist {kasimir malevich|ARTIST} born
@@ -33,9 +38,3 @@ ArtistBornIntent	where is {malevich|ARTIST} from
 ArtistBornIntent	where the artist {kasimir malevich|ARTIST} is from
 ArtistBornIntent	where artist {malevich|ARTIST} is from
 ArtistBornIntent	where {kasimir malevich|ARTIST} is from
-ArtistAboutIntent	to tell me about the artist {malevich|ARTIST}
-ArtistAboutIntent	about the artist {kasimir malevich|ARTIST}
-ArtistAboutIntent	to tell me about artist {malevich|ARTIST}
-ArtistAboutIntent	about artist {kasimir malevich|ARTIST}
-ArtistAboutIntent	to tell me about {malevich|ARTIST}
-ArtistAboutIntent	about {kasimir malevich|ARTIST}

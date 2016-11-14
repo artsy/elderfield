@@ -1,20 +1,16 @@
 {
    "intents": [
       {
-         "intent": "WhatIsArtsyIntent",
-         "slots": []
-      },
-      {
-         "intent": "ArtistBornIntent",
+         "intent": "AboutIntent",
          "slots": [
             {
-               "name": "ARTIST",
+               "name": "VALUE",
                "type": "LITERAL"
             }
          ]
       },
       {
-         "intent": "ArtistAboutIntent",
+         "intent": "ArtistBornIntent",
          "slots": [
             {
                "name": "ARTIST",

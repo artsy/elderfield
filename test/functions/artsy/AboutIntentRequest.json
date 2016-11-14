@@ -16,10 +16,10 @@
         "locale": "en-US",
         "timestamp": "2016-11-12T22:03:54Z",
         "intent": {
-            "name": "ArtistAboutIntent",
+            "name": "AboutIntent",
             "slots": {
-                "ARTIST": {
-                    "name": "ARTIST",
+                "VALUE": {
+                    "name": "VALUE",
                     "value": "Andy Warhol"
                 }
             }
