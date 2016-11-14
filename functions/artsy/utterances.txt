@@ -1,3 +1,5 @@
+WhatIsArtsyIntent	what is artsy
+WhatIsArtsyIntent	about artsy
 ArtistBornIntent	when was the artist {kasimir malevich|ARTIST} born
 ArtistBornIntent	where was the artist {malevich|ARTIST} born
 ArtistBornIntent	when and where was the artist {kasimir malevich|ARTIST} born

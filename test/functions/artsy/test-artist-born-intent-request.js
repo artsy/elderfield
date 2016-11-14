@@ -30,8 +30,8 @@ describe('artsy alexa', function() {
     });
 
     it('only finds the first artist', function(done) {
-        artistBornIntentRequest('Artist', function(ssml) {
-            expect(ssml).to.equal("<speak>Sorry, I couldn't find an artist named Artist.</speak>");
+        artistBornIntentRequest('@#%&*#$%', function(ssml) {
+            expect(ssml).to.equal("<speak>Sorry, I couldn't find an artist named @#%&*#$%.</speak>");
             done();
         });
 
