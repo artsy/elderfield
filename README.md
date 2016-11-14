@@ -10,14 +10,9 @@ This project is named after curator [John Elderfield](https://en.wikipedia.org/w
 
 ### Current Skills
 
-* Alexa, ask Artsy what is Artsy
 * Alexa, ask Artsy about Artsy
 * Alexa, ask Artsy about Andy Warhol
-* Alexa, ask Artsy where Norman Rockwell is from
-* Alexa, ask Artsy when was Shepard Fairey born
-* Alexa, ask Artsy where was artist Shepard Fairey born
-* Alexa, ask Artsy when and where was artist Andy Warhol born
-* Alexa, ask Artsy when did Andy Warhol die
+* Alexa, ask Artsy about Norman Rockwell
 
 ### Deploying to AWS Lambda
 

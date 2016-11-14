@@ -5,16 +5,7 @@
          "slots": [
             {
                "name": "VALUE",
-               "type": "LITERAL"
-            }
-         ]
-      },
-      {
-         "intent": "ArtistBornIntent",
-         "slots": [
-            {
-               "name": "ARTIST",
-               "type": "LITERAL"
+               "type": "NAME"
             }
          ]
       }
