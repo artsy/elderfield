@@ -1,15 +1,30 @@
-ArtistAgeIntent	When was the artist {Andy Warhol|ARTIST} born
-ArtistAgeIntent	Where was the artist {Warhol|ARTIST} born
-ArtistAgeIntent	When and where was the artist {Malevich|ARTIST} born
-ArtistAgeIntent	Where and when was the artist {Andy Warhol|ARTIST} born
-ArtistAgeIntent	When was artist {Warhol|ARTIST} born
-ArtistAgeIntent	Where was artist {Malevich|ARTIST} born
-ArtistAgeIntent	When and where was artist {Andy Warhol|ARTIST} born
-ArtistAgeIntent	Where and when was artist {Warhol|ARTIST} born
-ArtistAgeIntent	When was {Malevich|ARTIST} born
-ArtistAgeIntent	Where was {Andy Warhol|ARTIST} born
-ArtistAgeIntent	When and where was {Warhol|ARTIST} born
-ArtistAgeIntent	Where and when was {Malevich|ARTIST} born
-ArtistAgeIntent	Where is the artist {Andy Warhol|ARTIST} from
-ArtistAgeIntent	Where is artist {Warhol|ARTIST} from
-ArtistAgeIntent	Where is {Malevich|ARTIST} from
+ArtistAgeIntent	when was the artist {kasimir malevich|ARTIST} born
+ArtistAgeIntent	where was the artist {malevich|ARTIST} born
+ArtistAgeIntent	when and where was the artist {kasimir malevich|ARTIST} born
+ArtistAgeIntent	where and when was the artist {malevich|ARTIST} born
+ArtistAgeIntent	when was artist {kasimir malevich|ARTIST} born
+ArtistAgeIntent	where was artist {malevich|ARTIST} born
+ArtistAgeIntent	when and where was artist {kasimir malevich|ARTIST} born
+ArtistAgeIntent	where and when was artist {malevich|ARTIST} born
+ArtistAgeIntent	when was {kasimir malevich|ARTIST} born
+ArtistAgeIntent	where was {malevich|ARTIST} born
+ArtistAgeIntent	when and where was {kasimir malevich|ARTIST} born
+ArtistAgeIntent	where and when was {malevich|ARTIST} born
+ArtistAgeIntent	when the artist {kasimir malevich|ARTIST} was born
+ArtistAgeIntent	where the artist {malevich|ARTIST} was born
+ArtistAgeIntent	when and where the artist {kasimir malevich|ARTIST} was born
+ArtistAgeIntent	where and when the artist {malevich|ARTIST} was born
+ArtistAgeIntent	when artist {kasimir malevich|ARTIST} was born
+ArtistAgeIntent	where artist {malevich|ARTIST} was born
+ArtistAgeIntent	when and where artist {kasimir malevich|ARTIST} was born
+ArtistAgeIntent	where and when artist {malevich|ARTIST} was born
+ArtistAgeIntent	when {kasimir malevich|ARTIST} was born
+ArtistAgeIntent	where {malevich|ARTIST} was born
+ArtistAgeIntent	when and where {kasimir malevich|ARTIST} was born
+ArtistAgeIntent	where and when {malevich|ARTIST} was born
+ArtistAgeIntent	where is the artist {kasimir malevich|ARTIST} from
+ArtistAgeIntent	where is artist {malevich|ARTIST} from
+ArtistAgeIntent	where is {kasimir malevich|ARTIST} from
+ArtistAgeIntent	where the artist {malevich|ARTIST} is from
+ArtistAgeIntent	where artist {kasimir malevich|ARTIST} is from
+ArtistAgeIntent	where {malevich|ARTIST} is from

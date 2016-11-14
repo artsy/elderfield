@@ -15,8 +15,10 @@ app.intent('ArtistAgeIntent', {
             "ARTIST": "LITERAL"
         },
         "utterances": [
-            "{When|Where|When and where|Where and when} was {the artist|artist|} {Andy Warhol|Warhol|Malevich|ARTIST} born",
-            "{Where} is {the artist|artist|} {Andy Warhol|Warhol|Malevich|ARTIST} from"
+            "{when|where|when and where|where and when} was {the artist|artist|} {kasimir malevich|malevich|ARTIST} born",
+            "{when|where|when and where|where and when} {the artist|artist|} {kasimir malevich|malevich|ARTIST} was born",
+            "{where} is {the artist|artist|} {kasimir malevich|malevich|ARTIST} from",
+            "{where} {the artist|artist|} {kasimir malevich|malevich|ARTIST} is from"
         ]
     },
     function(req, res) {
