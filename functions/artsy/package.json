@@ -12,6 +12,7 @@
         "q": "1.4.1",
         "alexa-app": "^2.3.4",
         "superagent": "2.3.0",
-        "underscore": "1.8.3"
+        "underscore": "1.8.3",
+        "remove-markdown": "0.1.0"
     }
 }
