@@ -24,9 +24,12 @@ ArtistBornIntent	when {kasimir malevich|ARTIST} was born
 ArtistBornIntent	where {malevich|ARTIST} was born
 ArtistBornIntent	when and where {kasimir malevich|ARTIST} was born
 ArtistBornIntent	where and when {malevich|ARTIST} was born
-ArtistBornIntent	where is the artist {kasimir malevich|ARTIST} from
-ArtistBornIntent	where is artist {malevich|ARTIST} from
-ArtistBornIntent	where is {kasimir malevich|ARTIST} from
-ArtistBornIntent	where the artist {malevich|ARTIST} is from
-ArtistBornIntent	where artist {kasimir malevich|ARTIST} is from
-ArtistBornIntent	where {malevich|ARTIST} is from
+ArtistBornIntent	when did the artist {kasimir malevich|ARTIST} die
+ArtistBornIntent	when did artist {malevich|ARTIST} die
+ArtistBornIntent	when did {kasimir malevich|ARTIST} die
+ArtistBornIntent	where is the artist {malevich|ARTIST} from
+ArtistBornIntent	where is artist {kasimir malevich|ARTIST} from
+ArtistBornIntent	where is {malevich|ARTIST} from
+ArtistBornIntent	where the artist {kasimir malevich|ARTIST} is from
+ArtistBornIntent	where artist {malevich|ARTIST} is from
+ArtistBornIntent	where {kasimir malevich|ARTIST} is from

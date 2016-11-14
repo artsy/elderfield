@@ -28,6 +28,7 @@ app.intent('ArtistBornIntent', {
         "utterances": [
             "{when|where|when and where|where and when} was {the artist|artist|} {kasimir malevich|malevich|ARTIST} born",
             "{when|where|when and where|where and when} {the artist|artist|} {kasimir malevich|malevich|ARTIST} was born",
+            "{when} did {the artist|artist|} {kasimir malevich|malevich|ARTIST} die",
             "{where} is {the artist|artist|} {kasimir malevich|malevich|ARTIST} from",
             "{where} {the artist|artist|} {kasimir malevich|malevich|ARTIST} is from"
         ]
@@ -38,16 +39,17 @@ app.intent('ArtistBornIntent', {
             api.matchArtist(artistName).then(function(artist) {
                 if (artist.hometown || artist.birthday) {
                     var message = _.compact([
-                        artist.nationality && artist.nationality != "" ? artist.nationality : 'The',
+                        artist.nationality ? artist.nationality : 'The',
                         "artist",
                         artist.name,
                         "was born",
-                        artist.hometown && artist.hometown != "" ? "in " + _.first(artist.hometown.split(',')) : null,
-                        artist.birthday && artist.birthday != "" ? "in " + _.last(artist.birthday.split(',')) : null
+                        artist.hometown ? "in " + _.first(artist.hometown.split(',')) : null,
+                        artist.birthday ? "in " + _.last(artist.birthday.split(',')) : null,
+                        artist.deathday ? "and died in " + _.last(artist.deathday.split(',')) : null
                     ]).join(' ');
                     res.say(message);
                 } else {
-                    res.say("Sorry, I don't know when or where artist " + artistName + " was born.");
+                    res.say("Sorry, I don't know much about the artist " + artistName + ".");
                 }
                 res.send();
             }).fail(function(error) {
