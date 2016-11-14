@@ -1,6 +1,6 @@
 {
   "name": "alexa",
-  "description": "Artsy for Alexa",
+  "description": "Artsy for Amazon Echo Alexa.",
   "memory": 128,
   "timeout": 5,
   "role": "arn:aws:iam::585031190124:role/service-role/alexa-artsy",
