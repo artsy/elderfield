@@ -13,11 +13,10 @@ app.launch(function(req, res) {
 
 app.intent('AboutIntent', {
         "slots": {
-            "VALUE": "LITERAL"
+            "VALUE": "NAME"
         },
         "utterances": [
-            "what is artsy",
-            "{to tell me|} about {the artist|artist|} {kasimir malevich|malevich|VALUE}"
+            "about {-|VALUE}"
         ]
     },
     function(req, res) {
@@ -25,71 +24,47 @@ app.intent('AboutIntent', {
 
         if (value == 'artsy') {
             return res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
+        } else if (!value) {
+            return res.say("Sorry, I didn't get that artist name.");
+        } else {
+            api.instance().then(function(api) {
+                api.matchArtist(value).then(function(artist) {
+                    var message = []
+
+                    if (artist.hometown || artist.birthday) {
+                        message.push(_.compact([
+                            artist.nationality ? artist.nationality : 'The',
+                            "artist",
+                            artist.name,
+                            "was born",
+                            artist.hometown ? "in " + _.first(artist.hometown.split(',')) : null,
+                            artist.birthday ? "in " + _.last(artist.birthday.split(',')) : null,
+                            artist.deathday ? "and died in " + _.last(artist.deathday.split(',')) : null
+                        ]).join(' '));
+                    }
+
+                    if (artist.blurb || artist.biography) {
+                        message.push(artist.blurb || artist.biography);
+                    }
+
+                    if (message.length > 0) {
+                        res.say(removeMd(message.join('. ')));
+                    } else {
+                        res.say("Sorry, I don't know much about " + value + ".");
+                    }
+
+                    res.send();
+                }).fail(function(error) {
+                    res.say("Sorry, I couldn't find an artist " + value + ".");
+                    res.send();
+                });
+            }).fail(function(error) {
+                res.say("Sorry, I couldn't connect to Artsy.");
+                res.send();
+            });
+
+            return false;
         }
-
-        api.instance().then(function(api) {
-            api.matchArtist(value).then(function(artist) {
-                var message = artist.blurb || artist.biography
-                if (message) {
-                    res.say(removeMd(message));
-                } else {
-                    res.say("Sorry, I don't know much about " + value + ".");
-                }
-                res.send();
-            }).fail(function(error) {
-                res.say("Sorry, I couldn't find an artist " + value + ".");
-                res.send();
-            });
-        }).fail(function(error) {
-            res.say("Sorry, I couldn't connect to Artsy.");
-            res.send();
-        });
-
-        return false;
-    }
-);
-
-app.intent('ArtistBornIntent', {
-        "slots": {
-            "ARTIST": "LITERAL"
-        },
-        "utterances": [
-            "{when|where|when and where|where and when} was {the artist|artist|} {kasimir malevich|malevich|ARTIST} born",
-            "{when|where|when and where|where and when} {the artist|artist|} {kasimir malevich|malevich|ARTIST} was born",
-            "{when} did {the artist|artist|} {kasimir malevich|malevich|ARTIST} die",
-            "{where} is {the artist|artist|} {kasimir malevich|malevich|ARTIST} from",
-            "{where} {the artist|artist|} {kasimir malevich|malevich|ARTIST} is from"
-        ]
-    },
-    function(req, res) {
-        var artistName = req.slot('ARTIST');
-        api.instance().then(function(api) {
-            api.matchArtist(artistName).then(function(artist) {
-                if (artist.hometown || artist.birthday) {
-                    var message = _.compact([
-                        artist.nationality ? artist.nationality : 'The',
-                        "artist",
-                        artist.name,
-                        "was born",
-                        artist.hometown ? "in " + _.first(artist.hometown.split(',')) : null,
-                        artist.birthday ? "in " + _.last(artist.birthday.split(',')) : null,
-                        artist.deathday ? "and died in " + _.last(artist.deathday.split(',')) : null
-                    ]).join(' ');
-                    res.say(message);
-                } else {
-                    res.say("Sorry, I don't know much about the artist " + artistName + ".");
-                }
-                res.send();
-            }).fail(function(error) {
-                res.say("Sorry, I couldn't find an artist named " + artistName + ".");
-                res.send();
-            });
-        }).fail(function(error) {
-            res.say("Sorry, I couldn't connect to Artsy.");
-            res.send();
-        });
-
-        return false;
     }
 );
 
