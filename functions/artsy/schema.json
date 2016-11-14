@@ -1,7 +1,7 @@
 {
    "intents": [
       {
-         "intent": "ArtistAgeIntent",
+         "intent": "ArtistBornIntent",
          "slots": [
             {
                "name": "ARTIST",

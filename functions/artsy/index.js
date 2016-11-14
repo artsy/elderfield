@@ -10,7 +10,7 @@ app.launch(function(req, res) {
     res.say("Welcome to Artsy!");
 });
 
-app.intent('ArtistAgeIntent', {
+app.intent('ArtistBornIntent', {
         "slots": {
             "ARTIST": "LITERAL"
         },

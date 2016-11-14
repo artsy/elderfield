@@ -6,7 +6,7 @@
         },
         "attributes": {},
         "user": {
-            "userId": "amzn1.ask.account.AG52PQPYVYLXIZNM64EF2I2NMZH4R5D56T5HBBBRFP65NAI6YOPRJKIFMZ7ILJEKZRGZWTXHPSV4T5X7XKKNO4N7ANBJ6WVDCPYVNDDRPZ2CZJ7NAWOAN6U7HE7BMA4DEXBM6LFEVPITNCSMXKOZYRUOTB3QR2LKNNJBGW4RKFAYYLTLTGRHMAD3GLU6ARQUIV3FGI75A7C4LGA"
+            "userId": "amzn1.ask.account.xyz"
         },
         "new": true
     },
@@ -16,7 +16,7 @@
         "locale": "en-US",
         "timestamp": "2016-11-12T22:03:54Z",
         "intent": {
-            "name": "ArtistAgeIntent",
+            "name": "ArtistBornIntent",
             "slots": {
                 "ARTIST": {
                     "name": "ARTIST",

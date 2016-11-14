@@ -14,7 +14,7 @@ deploy: build
 
 # Test
 test: build
-	mocha
+	./node_modules/mocha/bin/mocha
 
 production-deploy: build
 	apex deploy --env=production
