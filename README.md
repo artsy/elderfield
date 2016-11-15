@@ -8,6 +8,10 @@ An Amazon Alexa [skill](functions/artsy) for [Artsy](https://www.artsy.net).
 
 This project is named after curator [John Elderfield](https://en.wikipedia.org/wiki/John_Elderfield).
 
+### Demo
+
+Play [this video](https://youtu.be/FYVOAU35Sio).
+
 ### Current Skills
 
 * Alexa, ask Artsy about website Artsy
