@@ -10,7 +10,7 @@ This project is named after curator [John Elderfield](https://en.wikipedia.org/w
 
 ### Current Skills
 
-* Alexa, ask Artsy about Artsy
+* Alexa, ask Artsy about website Artsy
 * Alexa, ask Artsy about Andy Warhol
 * Alexa, ask Artsy about Norman Rockwell
 
