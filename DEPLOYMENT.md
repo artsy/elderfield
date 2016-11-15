@@ -84,3 +84,12 @@ You need Artsy Alexa `project.production.json` and access to the Artsy AWS infra
 make production-deploy
 ```
 
+### Alexa Skill Configuration
+
+Add the skill to [Alexa Skills](https://developer.amazon.com/edw/home.html#/skills/list).
+
+#### Interaction Model
+
+* Copy-paste the contents of [functions/artsy/schema.json](schema.json) into _Intent Schema_.
+* Add a custom slot type called `NAME`. Paste the contents of [special.txt](functions/artsy/data/special.txt), [artists.txt](functions/artsy/data/artists.txt) and [last_names.txt](functions/artsy/data/last_names.txt) into the values box.
+* Copy-paste the contents of [functions/artsy/utterances.txt](utterances.txt) into _Sample Utterances_.
