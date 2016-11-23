@@ -1,4 +1,2 @@
 artsy
 website artsy
-artzi
-website artzi
