@@ -8,7 +8,12 @@ var removeMd = require('remove-markdown');
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
 app.launch(function(req, res) {
-    res.say("Welcome to Artsy!");
+    var responseText = "Welcome to Artsy! Ask me about an artist."
+    res
+        .say(responseText)
+        .card("Welcome", responseText)
+        .shouldEndSession(false)
+        .send();
 });
 
 app.intent('AboutIntent', {

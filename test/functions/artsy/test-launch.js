@@ -9,7 +9,7 @@ describe('artsy alexa', function() {
                 expect(res.status).to.equal(200);
                 var data = JSON.parse(res.text);
                 expect(data.response.outputSpeech.type).to.equal('SSML')
-                expect(data.response.outputSpeech.ssml).to.equal('<speak>Welcome to Artsy!</speak>')
+                expect(data.response.outputSpeech.ssml).to.equal('<speak>Welcome to Artsy! Ask me about an artist.</speak>')
                 done();
             });
     });

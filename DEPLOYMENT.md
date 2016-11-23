@@ -70,7 +70,7 @@ This should return a welcome message.
     "shouldEndSession":true,
     "outputSpeech":{
       "type":"SSML",
-      "ssml":"<speak>Welcome to Artsy!</speak>"
+      "ssml":"<speak>Welcome to Artsy! Ask me about an artist.</speak>"
     }
   }
 }
