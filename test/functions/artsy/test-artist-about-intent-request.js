@@ -30,6 +30,13 @@ describe('artsy alexa', function() {
         });
     });
 
+    it('speaks about website artsy', function(done) {
+        aboutIntentRequest('website artsy', function(ssml) {
+            expect(ssml).to.startWith('<speak>Artsy’s mission is ');
+            done();
+        });
+    });
+
     it('properly joins dates and places', function(done) {
         aboutIntentRequest('Norman Rockwell', function(ssml) {
             expect(ssml).to.startWith('<speak>American artist Norman Rockwell was born in New York in 1894 and died in  1978');

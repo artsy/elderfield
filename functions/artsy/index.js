@@ -27,7 +27,7 @@ app.intent('AboutIntent', {
     function(req, res) {
         var value = req.slot('VALUE');
 
-        if (value == 'artsy') {
+        if (value == 'artsy' || value == 'website artsy') {
             return res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
         } else if (!value) {
             return res.say("Sorry, I didn't get that artist name.");
