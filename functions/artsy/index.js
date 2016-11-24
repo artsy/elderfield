@@ -7,14 +7,50 @@ var removeMd = require('remove-markdown');
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
+var helpText = "Ask me about an artist. Say help if you need help or exit any time to exit."
+
 app.launch(function(req, res) {
-    var responseText = "Welcome to Artsy! Ask me about an artist."
     res
-        .say(responseText)
-        .card("Welcome", responseText)
-        .shouldEndSession(false)
-        .send();
+        .say("Welcome to Artsy! Ask me about an artist.")
+        .shouldEndSession(false, helpText)
+    return true;
 });
+
+app.intent('AMAZON.StopIntent', {
+        "slots": {},
+        "utterances": [
+            "stop"
+        ]
+    },
+    function(req, res) {
+        res.say("Find out more at artsy.net. Goodbye.");
+        res.send();
+    }
+);
+
+app.intent('AMAZON.CancelIntent', {
+        "slots": {},
+        "utterances": [
+            "cancel"
+        ]
+    },
+    function(req, res) {
+        res.say("Find out more at artsy.net. Goodbye.");
+        res.send();
+    }
+);
+
+app.intent('AMAZON.HelpIntent', {
+        "slots": {},
+        "utterances": [
+            "help"
+        ]
+    },
+    function(req, res) {
+        res.say("If you don't know Artsy, ask Artsy about Artsy. You can then ask Artsy about an artist. For example say ask Artsy about Norman Rockwell.");
+        res.send();
+    }
+);
 
 app.intent('AboutIntent', {
         "slots": {
@@ -30,7 +66,8 @@ app.intent('AboutIntent', {
         if (value == 'artsy' || value == 'website artsy') {
             return res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
         } else if (!value) {
-            return res.say("Sorry, I didn't get that artist name.");
+            res.say("Sorry, I didn't get that artist name.");
+            return res.shouldEndSession(false, helpText);
         } else {
             api.instance().then(function(api) {
                 api.matchArtist(value).then(function(artist) {

@@ -1,1 +1,4 @@
+AMAZON.StopIntent	stop
+AMAZON.CancelIntent	cancel
+AMAZON.HelpIntent	help
 AboutIntent	about {VALUE}
