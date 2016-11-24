@@ -13,7 +13,7 @@ app.launch(function(req, res) {
     res
         .say("Welcome to Artsy! Ask me about an artist.")
         .shouldEndSession(false, helpText)
-    return true;
+        .send();
 });
 
 app.intent('AMAZON.StopIntent', {
