@@ -7,13 +7,13 @@ var removeMd = require('remove-markdown');
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
-var helpText = "Ask me about an artist. Say help if you need help or exit any time to exit."
+var helpText = "Say help if you need help or exit any time to exit. What artist would you like to hear about?"
 
 app.launch(function(req, res) {
     res
         .say("Welcome to Artsy! Ask me about an artist.")
         .shouldEndSession(false, helpText)
-    return true;
+        .send();
 });
 
 app.intent('AMAZON.StopIntent', {
@@ -47,7 +47,8 @@ app.intent('AMAZON.HelpIntent', {
         ]
     },
     function(req, res) {
-        res.say("If you don't know Artsy, ask Artsy about Artsy. You can then ask Artsy about an artist. For example say ask Artsy about Norman Rockwell.");
+        res.say("If you don't know Artsy, ask Artsy about Artsy. You can then ask Artsy about an artist. For example say ask Artsy about Norman Rockwell. What artist would you like to hear about?");
+        res.shouldEndSession(false);
         res.send();
     }
 );
