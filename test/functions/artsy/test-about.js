@@ -2,7 +2,7 @@ require('../../setup');
 
 describe('artsy alexa', function() {
     aboutIntentRequest = function(artistName, cb) {
-        var aboutIntentRequest = require('./AboutIntentRequest.json');
+        var aboutIntentRequest = require('./fixtures/AboutIntentRequest.json');
         aboutIntentRequest.request.intent.slots.VALUE.value = artistName;
         chai.request(server)
             .post('/alexa/artsy')
