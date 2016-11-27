@@ -30,8 +30,8 @@ describe('artsy alexa', function() {
         });
     });
 
-    it('speaks about website artsy', function(done) {
-        aboutIntentRequest('website artsy', function(ssml) {
+    it('handles misspelled artsy', function(done) {
+        aboutIntentRequest('artzi', function(ssml) {
             expect(ssml).to.startWith('<speak>Artsy’s mission is ');
             done();
         });
