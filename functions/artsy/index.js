@@ -92,6 +92,7 @@ app.intent('AboutIntent', {
 
                     if (message.length > 0) {
                         res.say(removeMd(message.join('. ')));
+                        res.shouldEndSession(true);
                     } else {
                         res.say("Sorry, I don't know much about " + value + ". Try again?");
                         res.shouldEndSession(false);
