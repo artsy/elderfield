@@ -54,6 +54,22 @@ $ make deploy
 
 Go to the Lambda function and choose _Triggers_. Add an `Alexa Skills Kit` trigger or you'll get an obscure `Please make sure that "Alexa Skills Kit" is selected for the event source type of arn:...` error.
 
+### Logs
+
+If logs don't appear in CloudWatch, manually attach the following policy.
+
+```json
+{
+  "Effect": "Allow",
+  "Action": [
+    "logs:CreateLogGroup",
+    "logs:CreateLogStream",
+    "logs:PutLogEvents"
+  ],
+  "Resource": "arn:aws:logs:*:*:*"
+}
+```
+
 ### Test
 
 ```
