@@ -53,7 +53,7 @@ app.intent('AMAZON.HelpIntent', {
     },
     function(req, res) {
         console.log('app.AMAZON.HelpIntent');
-        res.say("If you don't know Artsy, ask Artsy about Artsy. You can then ask Artsy about an artist. For example say ask Artsy about Norman Rockwell. What artist would you like to hear about?");
+        res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. You can ask Artsy about an artist. For example say ask Artsy about Norman Rockwell. What artist would you like to hear about?");
         res.shouldEndSession(false);
         res.send();
     }
@@ -71,9 +71,7 @@ app.intent('AboutIntent', {
         var value = req.slot('VALUE');
         console.log('app.AboutIntent: ' + value);
 
-        if (value == 'artsy' || value == 'artzi' || value == 'artsee') {
-            return res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
-        } else if (!value) {
+        if (!value) {
             res.say("Sorry, I didn't get that artist name. Try again?");
             return res.shouldEndSession(false, helpText);
         } else {
