@@ -4,7 +4,7 @@ describe('stop', function() {
     it('should respond', function(done) {
         chai.request(server)
             .post('/alexa/artsy')
-            .send(require('./StopIntentRequest.json'))
+            .send(require('./fixtures/StopIntentRequest.json'))
             .end(function(err, res) {
                 expect(res.status).to.equal(200);
                 var data = JSON.parse(res.text);
