@@ -5,11 +5,14 @@ var api = require('./models/api');
 var _ = require('underscore');
 var removeMd = require('remove-markdown');
 
+console.log('Loaded artsy.');
+
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
 var helpText = "Say help if you need help or exit any time to exit. What artist would you like to hear about?"
 
 app.launch(function(req, res) {
+    console.log('app.launch');
     res
         .say("Welcome to Artsy! Ask me about an artist.")
         .shouldEndSession(false, helpText)
@@ -23,6 +26,7 @@ app.intent('AMAZON.StopIntent', {
         ]
     },
     function(req, res) {
+        console.log('app.AMAZON.StopIntent');
         res.say("Find out more at artsy.net. Goodbye.");
         res.send();
     }
@@ -35,6 +39,7 @@ app.intent('AMAZON.CancelIntent', {
         ]
     },
     function(req, res) {
+        console.log('app.AMAZON.CancelIntent');
         res.say("Find out more at artsy.net. Goodbye.");
         res.send();
     }
@@ -47,7 +52,8 @@ app.intent('AMAZON.HelpIntent', {
         ]
     },
     function(req, res) {
-        res.say("If you don't know Artsy, ask Artsy about Artsy. You can then ask Artsy about an artist. For example say ask Artsy about Norman Rockwell. What artist would you like to hear about?");
+        console.log('app.AMAZON.HelpIntent');
+        res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. You can ask Artsy about an artist. For example say ask Artsy about Norman Rockwell. What artist would you like to hear about?");
         res.shouldEndSession(false);
         res.send();
     }
@@ -63,10 +69,9 @@ app.intent('AboutIntent', {
     },
     function(req, res) {
         var value = req.slot('VALUE');
+        console.log('app.AboutIntent: ' + value);
 
-        if (value == 'artsy' || value == 'artzi') {
-            return res.say("Artsy’s mission is to make all the world’s art accessible to anyone with an Internet connection. We are a resource for art collecting and education. Find more at artsy.net.");
-        } else if (!value) {
+        if (!value) {
             res.say("Sorry, I didn't get that artist name. Try again?");
             return res.shouldEndSession(false, helpText);
         } else {

@@ -54,6 +54,22 @@ $ make deploy
 
 Go to the Lambda function and choose _Triggers_. Add an `Alexa Skills Kit` trigger or you'll get an obscure `Please make sure that "Alexa Skills Kit" is selected for the event source type of arn:...` error.
 
+### Logs
+
+If logs don't appear in CloudWatch, manually attach the following policy.
+
+```json
+{
+  "Effect": "Allow",
+  "Action": [
+    "logs:CreateLogGroup",
+    "logs:CreateLogStream",
+    "logs:PutLogEvents"
+  ],
+  "Resource": "arn:aws:logs:*:*:*"
+}
+```
+
 ### Test
 
 ```
@@ -91,5 +107,5 @@ Add the skill to [Alexa Skills](https://developer.amazon.com/edw/home.html#/skil
 #### Interaction Model
 
 * Copy-paste the contents of [functions/artsy/schema.json](schema.json) into _Intent Schema_.
-* Add a custom slot type called `NAME`. Paste the contents of [special.txt](functions/artsy/data/special.txt), [artists.txt](functions/artsy/data/artists.txt) and [last_names.txt](functions/artsy/data/last_names.txt) into the values box.
+* Add a custom slot type called `NAME`. Paste the contents of [artists.txt](functions/artsy/data/artists.txt) and [last_names.txt](functions/artsy/data/last_names.txt) into the values box.
 * Copy-paste the contents of [functions/artsy/utterances.txt](utterances.txt) into _Sample Utterances_.
