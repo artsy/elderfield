@@ -74,7 +74,7 @@ If logs don't appear in CloudWatch, manually attach the following policy.
 ### Test
 
 ```
-apex invoke artsy < test/functions/artsy/LaunchRequest.json
+apex invoke artsy < test/functions/artsy/fixtures/LaunchRequest.json
 ```
 
 This should return a welcome message.
