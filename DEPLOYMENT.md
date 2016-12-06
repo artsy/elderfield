@@ -1,10 +1,6 @@
 ## Deploy to AWS Lambda
 
-### Create a Lambda Function
-
-Go to [AWS Lambda](https://console.aws.amazon.com/lambda) and create a `alexa-artsy` function with a new IAM role, `alexa-artsy`.
-
-The `alexa-artsy` role is used in [project.json](project.json).
+This will create an [AWS Lambda](https://console.aws.amazon.com/lambda) function called `alexa_artsy` with a new IAM role, `alexa-artsy`. The `alexa-artsy` role is used in [project.json](project.json).
 
 ### Install Apex
 
@@ -60,13 +56,18 @@ If logs don't appear in CloudWatch, manually attach the following policy.
 
 ```json
 {
-  "Effect": "Allow",
-  "Action": [
-    "logs:CreateLogGroup",
-    "logs:CreateLogStream",
-    "logs:PutLogEvents"
-  ],
-  "Resource": "arn:aws:logs:*:*:*"
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    }
+  ]
 }
 ```
 
