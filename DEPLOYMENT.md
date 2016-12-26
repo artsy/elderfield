@@ -36,6 +36,12 @@ Install dependent packages and export schema and utterances.
 make build
 ```
 
+### Set Environment Variables
+Make sure `ARTSY_CLIENT_ID` and `ARTSY_CLIENT_SECRET` are set in your environment variables. These are used to access Artsy's API.
+
+#### Google Geocoding API keys
+Elderfield skill uses [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) to geocode city names to lat/lon. Make sure `GOOGLE_GEOCODING_API_KEY` is set in your environment variables.
+
 ### Deploy to Lambda
 
 ```

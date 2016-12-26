@@ -2,3 +2,7 @@ AMAZON.StopIntent	stop
 AMAZON.CancelIntent	cancel
 AMAZON.HelpIntent	help
 AboutIntent	about {VALUE}
+ShowsIntent	for shows in {CITY}
+ShowsIntent	shows in {CITY}
+ShowsIntent	for shows around {CITY}
+ShowsIntent	shows around {CITY}

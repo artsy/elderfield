@@ -21,6 +21,9 @@ Play [this video](https://youtu.be/zi3OubNiV9U).
 * Alexa, ask Artsy about Andy Warhol
 * Alexa, ask Artsy about Norman Rockwell
 * Alexa, ask Artsy about Pablo Picasso.
+* Alexa, ask Artsy for shows in Brooklyn.
+* Alexa, ask Artsy for shows around Manhattan.
+* Alexa, ask Artsy shows in Brooklyn.
 
 ### Deploying to AWS Lambda
 

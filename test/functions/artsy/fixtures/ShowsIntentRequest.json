@@ -1,0 +1,29 @@
+{
+    "session": {
+        "sessionId": "SessionId.ca05ce5f-3b70-49be-84b5-bdc3086533fb",
+        "application": {
+            "applicationId": "amzn1.ask.skill.42004f60-1c66-4c61-8c5d-9006303e6ec4"
+        },
+        "attributes": {},
+        "user": {
+            "userId": "amzn1.ask.account.xyz"
+        },
+        "new": true
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "EdwRequestId.624219fd-68b1-41ba-b02b-a1bf54dfe180",
+        "locale": "en-US",
+        "timestamp": "2016-11-12T22:03:54Z",
+        "intent": {
+            "name": "ShowsIntent",
+            "slots": {
+                "CITY": {
+                    "name": "CITY",
+                    "value": "Brooklyn"
+                }
+            }
+        }
+    },
+    "version": "1.0"
+}

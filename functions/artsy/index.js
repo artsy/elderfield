@@ -4,6 +4,14 @@ var xapp = require('./models/xapp');
 var api = require('./models/api');
 var _ = require('underscore');
 var removeMd = require('remove-markdown');
+var NodeGeocoder = require('node-geocoder');
+
+var geocodingOptions = {
+  provider: 'google',
+  httpAdapter: 'https', // Default
+  apiKey: process.env["GOOGLE_GEOCODING_API_KEY"]
+};
+var geocoder = NodeGeocoder(geocodingOptions);
 
 console.log('Loaded artsy.');
 
@@ -14,7 +22,7 @@ var helpText = "Say help if you need help or exit any time to exit. What artist 
 app.launch(function(req, res) {
     console.log('app.launch');
     res
-        .say("Welcome to Artsy! Ask me about an artist.")
+        .say("Welcome to Artsy! Ask me about an artist, or shows in your city.")
         .shouldEndSession(false, helpText)
         .send();
 });
@@ -85,9 +93,9 @@ app.intent('AboutIntent', {
                             "artist",
                             artist.name,
                             "was born",
-                            artist.hometown ? "in " + _.first(artist.hometown.split(',')) : null,
-                            artist.birthday ? "in " + _.last(artist.birthday.split(',')) : null,
-                            artist.deathday ? "and died in " + _.last(artist.deathday.split(',')) : null
+                            artist.hometown ? `in ${_.first(artist.hometown.split(','))}` : null,
+                            artist.birthday ? `in ${_.last(artist.birthday.split(','))}` : null,
+                            artist.deathday ? `and died in ${_.last(artist.deathday.split(','))}` : null
                         ]).join(' '));
                     }
 
@@ -99,13 +107,13 @@ app.intent('AboutIntent', {
                         res.say(removeMd(message.join('. ')));
                         res.shouldEndSession(true);
                     } else {
-                        res.say("Sorry, I don't know much about " + value + ". Try again?");
+                        res.say(`Sorry, I don't know much about ${value}. Try again?`);
                         res.shouldEndSession(false);
                     }
 
                     res.send();
                 }).fail(function(error) {
-                    res.say("Sorry, I couldn't find an artist " + value + ". Try again?");
+                    res.say(`Sorry, I couldn't find an artist ${value}. Try again?`);
                     res.shouldEndSession(false);
                     res.send();
                 });
@@ -117,6 +125,62 @@ app.intent('AboutIntent', {
 
             return false;
         }
+    }
+);
+
+app.intent('ShowsIntent', {
+        "slots": {
+            "CITY": "LITERAL"
+        },
+        "utterances": [
+            "{for|} shows {in|around} {-|CITY}"
+        ]
+    },
+    function(req, res) {
+        var city = req.slot('CITY');
+        console.log('app.ShowsIntent: ' + city);
+
+        geocoder.geocode(city)
+            .then(function(geoRes) {
+                geocodeResult = _.first(geoRes);
+                if (_.isEmpty(geoRes)) {
+                    res.say(`Sorry, I couldn't find ${city}. Try again?`);
+                    res.shouldEndSession(false);
+                    res.send();
+                } else {
+                    api.instance().then(function(api) {
+                        api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
+                            var intro = `Current exhibitions around ${city}`
+                            var message = []
+                            _.each(results, function(show) {
+                                message.push(`${show.name} at ${show.partner.name}`)
+                            })
+                            if (message.length > 0) {
+                                res.say(`${intro}: ${message.join('. ')}`);
+                                res.shouldEndSession(true);
+                            } else {
+                                res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
+                                res.shouldEndSession(false);
+                            }
+                            res.send();
+                        }).fail(function(error) {
+                            res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
+                            res.shouldEndSession(false);
+                            res.send();
+                        });
+                    }).fail(function(error) {
+                        res.say("Sorry, I couldn't connect to Artsy. Try again?");
+                        res.shouldEndSession(false);
+                        res.send();
+                    });
+                }
+            })
+            .catch(function(err) {
+                res.say(`Sorry, I couldn't find ${city}. Try again?`);
+                res.shouldEndSession(false);
+                res.send();
+            });
+        return false;
     }
 );
 
