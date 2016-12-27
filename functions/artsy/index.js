@@ -4,14 +4,14 @@ var xapp = require('./models/xapp');
 var api = require('./models/api');
 var _ = require('underscore');
 var removeMd = require('remove-markdown');
-var NodeGeocoder = require('node-geocoder');
+var nodeGeocoder = require('node-geocoder');
 
 var geocodingOptions = {
   provider: 'google',
   httpAdapter: 'https', // Default
   apiKey: process.env["GOOGLE_GEOCODING_API_KEY"]
 };
-var geocoder = NodeGeocoder(geocodingOptions);
+var geocoder = nodeGeocoder(geocodingOptions);
 
 console.log('Loaded artsy.');
 
@@ -145,9 +145,11 @@ app.intent('ShowsIntent', {
                 geocodeResult = _.first(geoRes);
                 if (_.isEmpty(geoRes)) {
                     res.say(`Sorry, I couldn't find ${city}. Try again?`);
+                    console.log(`app.ShowsIntent: could not geocode city: ${city}.`);
                     res.shouldEndSession(false);
                     res.send();
                 } else {
+                    console.log(`app.ShowsIntent: fetching shows for: ${city}.`);
                     api.instance().then(function(api) {
                         api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
                             var intro = `Current exhibitions around ${city}`
