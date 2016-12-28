@@ -130,7 +130,7 @@ app.intent('AboutIntent', {
 
 app.intent('ShowsIntent', {
         "slots": {
-            "CITY": "LITERAL"
+            "CITY": "AMAZON.US_CITY"
         },
         "utterances": [
             "{for|} shows {in|around} {-|CITY}"
