@@ -102,7 +102,7 @@ Make sure following environment variables are set in AWS Lambda settings:
 ARTSY_BASE_API_URL=replace-me
 ARTSY_CLIENT_ID=replace-me
 ARTSY_CLIENT_SECRET=replace-me
-ENV=production
+ENV=lambda
 ```
 
 Then run: 
