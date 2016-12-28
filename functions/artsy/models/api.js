@@ -5,6 +5,7 @@ var superagent = require('superagent')
 
 function Api(xappToken) {
     this.xappToken = xappToken;
+    this.base_url = process.env["ARTSY_BASE_API_URL"];
 }
 
 Api.instance = function() {
@@ -17,9 +18,9 @@ Api.instance = function() {
     return deferred.promise;
 }
 
-Api.prototype.get = function(url, params) {
+Api.prototype.get = function(path, params) {
     var deferred = Q.defer();
-    var request = superagent.get(url).set('X-Xapp-Token', this.xappToken);
+    var request = superagent.get(`${this.base_url}${path}`).set('X-Xapp-Token', this.xappToken);
     if (params) request = request.query(params);
     request.end(function(error, results) {
         if (error || !results) {
@@ -35,10 +36,10 @@ Api.prototype.matchArtist = function(name) {
     var api = this;
     var deferred = Q.defer();
     // TODO: use APIv2 /search when it's backed by ElasticSearch
-    api.get('https://api.artsy.net/api/v1/match/artists', { term: name, size: 1 }).then(function(results) {
+    api.get('/v1/match/artists', { term: name, size: 1 }).then(function(results) {
         var result = _.first(results)
         if (result) {
-            deferred.resolve(api.get('https://api.artsy.net/api/v1/artist/' + result._id, { }));
+            deferred.resolve(api.get(`/v1/artist/${result._id}`, { }));
         } else {
             deferred.reject("No matching artists.")
         }
