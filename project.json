@@ -3,10 +3,5 @@
   "description": "Artsy for Amazon Echo Alexa.",
   "memory": 128,
   "timeout": 5,
-  "role": "arn:aws:iam::585031190124:role/service-role/alexa-artsy",
-  "environment": {
-    "ENV": "lambda",
-    "ARTSY_CLIENT_ID": "8198312f86b95300946b",
-    "ARTSY_CLIENT_SECRET": "99ba69754592e7d4cce2bb319ece15b4"
-  }
+  "role": "arn:aws:iam::585031190124:role/service-role/alexa-artsy"
 }
