@@ -97,6 +97,16 @@ This should return a welcome message.
 
 You need Artsy Alexa `project.production.json` and access to the Artsy AWS infrastructure. If you work at Artsy, you will find it in 1Password in the Engineering vault under `elderfield (Alexa) project.production.json`.
 
+Make sure following environment variables are set in AWS Lambda settings:
+```
+ARTSY_BASE_API_URL=replace-me
+ARTSY_CLIENT_ID=replace-me
+ARTSY_CLIENT_SECRET=replace-me
+ENV=lambda
+```
+
+Then run: 
+
 ```
 make production-deploy
 ```
