@@ -133,7 +133,7 @@ app.intent('ShowsIntent', {
             "CITY": "AMAZON.US_CITY"
         },
         "utterances": [
-            "{for|} shows {in|around} {-|CITY}"
+            "for {|current} shows {in|around} {-|CITY}"
         ]
     },
     function(req, res) {
