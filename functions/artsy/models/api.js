@@ -49,4 +49,20 @@ Api.prototype.matchArtist = function(name) {
     return deferred.promise;
 }
 
+Api.prototype.findShows = function(lat, lon) {
+    var api = this;
+    var deferred = Q.defer();
+    // TODO: use APIv2 /shows when it supports near param
+    api.get('/v1/shows', { near: [lat,lon].join(','), sort: '-featured,-end_at', size: 5 }).then(function(results) {
+        if (results) {
+            deferred.resolve(results);
+        } else {
+            deferred.reject("No shows in this city.")
+        }
+    }).fail(function(error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+}
+
 module.exports = Api;

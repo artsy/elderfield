@@ -36,6 +36,14 @@ Install dependent packages and export schema and utterances.
 make build
 ```
 
+### Set Environment Variables
+
+Make sure `ARTSY_CLIENT_ID` and `ARTSY_CLIENT_SECRET` are set in your environment variables. These are used to access Artsy's API.
+
+#### Google Geocoding API keys
+
+Elderfield skill uses [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro) to geocode city names to lat/lon. Make sure `GOOGLE_GEOCODING_API_KEY` is set in your environment variables.
+
 ### Deploy to Lambda
 
 ```
@@ -49,6 +57,19 @@ $ make deploy
 ### Triggers
 
 Go to the Lambda function and choose _Triggers_. Add an `Alexa Skills Kit` trigger or you'll get an obscure `Please make sure that "Alexa Skills Kit" is selected for the event source type of arn:...` error.
+
+### Adding new intents
+
+In case you have added new intents or modified existing ones, follow these steps:
+- Login to https://developer.amazon.com with it@artsymail.com user from 1Password
+- Go to `Alexa` tab
+- Click on `Alexa Skills Kit` get started
+- Select `Artsy`
+- Click `Interaction Model`
+- If you've added a new skill, make sure to add it to `Intent Schema` json section
+- Add/Modify `Custome Slot Types` if needed based on your change.
+- Add/Update `Sample Utterances`.
+- Make sure to save your changes
 
 ### Logs
 
@@ -73,6 +94,7 @@ If logs don't appear in CloudWatch, manually attach the following policy.
 
 ### Test
 
+#### In command line
 ```
 apex invoke artsy < test/functions/artsy/fixtures/LaunchRequest.json
 ```
@@ -92,6 +114,10 @@ This should return a welcome message.
   }
 }
 ```
+
+#### Using echosim.io
+
+Go to https://echosim.io/ and login with `it@artsymail.com` and try Artsy's plugin.
 
 ### Production Deployment
 

@@ -20,6 +20,15 @@
                "type": "NAME"
             }
          ]
+      },
+      {
+         "intent": "ShowsIntent",
+         "slots": [
+            {
+               "name": "CITY",
+               "type": "AMAZON.US_CITY"
+            }
+         ]
       }
    ]
 }
