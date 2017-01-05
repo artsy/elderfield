@@ -1,3 +1,4 @@
 node_modules
 project.production.json
 .env.json
+.DS_Store
