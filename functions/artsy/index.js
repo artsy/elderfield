@@ -192,6 +192,9 @@ if (process.env['ENV'] == 'lambda') {
 } else if (process.env['ENV'] == 'development') {
     console.log("Starting Artsy Alexa in development mode.")
     module.exports = app;
+} else if (process.env['ENV'] == 'test') {
+    console.log("Starting Artsy Alexa in test mode.")
+    module.exports = app;
 } else {
     var fs = require('fs');
     fs.writeFileSync('schema.json', app.schema());

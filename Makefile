@@ -1,6 +1,12 @@
+ARTSY_CLIENT_ID=8198312f86b95300946b
+ARTSY_CLIENT_SECRET=99ba69754592e7d4cce2bb319ece15b4
+ARTSY_BASE_API_URL=https://stagingapi.artsy.net/api
+
+KEYS=ARTSY_CLIENT_ID=$(ARTSY_CLIENT_ID) ARTSY_CLIENT_SECRET=$(ARTSY_CLIENT_SECRET) ARTSY_BASE_API_URL=$(ARTSY_BASE_API_URL)
+
 # Start the server
 s:
-	node server.js
+	ENV=development $(KEYS)	node server.js
 
 # Build
 build:
@@ -14,7 +20,7 @@ deploy: build
 
 # Test
 test: build
-	./node_modules/mocha/bin/mocha
+	ENV=test $(KEYS) ./node_modules/mocha/bin/mocha
 
 production-deploy: build
 	apex deploy --env=production
