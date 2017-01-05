@@ -1,6 +1,6 @@
 # Start the server
 s:
-	node server.js
+	ENV=development	node server.js
 
 # Build
 build:
