@@ -33,6 +33,10 @@ See [DEPLOYMENT](DEPLOYMENT.md).
 
 See [CONTRIBUTING](CONTRIBUTING.md).
 
+### Releasing
+
+See [RELEASING](RELEASING.md).
+
 ### License
 
 Copyright (c) 2016 Artsy

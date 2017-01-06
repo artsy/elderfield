@@ -5,6 +5,7 @@ var api = require('./models/api');
 var _ = require('underscore');
 var removeMd = require('remove-markdown');
 var nodeGeocoder = require('node-geocoder');
+var artsyPackage = require('./package.json');
 
 var geocodingOptions = {
   provider: 'google',
@@ -13,7 +14,7 @@ var geocodingOptions = {
 };
 var geocoder = nodeGeocoder(geocodingOptions);
 
-console.log('Loaded artsy.');
+console.log(`Loaded artsy ${artsyPackage.version}.`);
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 

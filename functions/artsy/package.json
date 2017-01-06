@@ -1,6 +1,6 @@
 {
     "name": "artsy",
-    "version": "0.0.1",
+    "version": "0.3.0",
     "description": "An Artsy Alexa skill.",
     "main": "index.js",
     "author": "Daniel Doubrovkine <db@artsy.net> (https://www.artsy.net/)",
