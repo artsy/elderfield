@@ -63,7 +63,14 @@ describe('artsy alexa', function() {
             expect(response.shouldEndSession).to.equal(false);
             done();
         });
+    });
 
+    it('properly handles unknown artist name', function(done) {
+        aboutIntentRequest(undefined, function(response) {
+            expect(response.outputSpeech.ssml).to.equal("<speak>Sorry, I didn't get that artist name. Try again?</speak>");
+            expect(response.shouldEndSession).to.equal(false);
+            done();
+        });
     });
 
     it('supports artists without dates', function(done) {

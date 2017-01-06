@@ -18,13 +18,11 @@ console.log(`Loaded artsy ${artsyPackage.version}.`);
 
 module.change_code = 1; // allow this module to be reloaded by hotswap when changed
 
-var helpText = "Say help if you need help or exit any time to exit. What artist would you like to hear about?"
-
 app.launch(function(req, res) {
     console.log('app.launch');
     res
         .say("Welcome to Artsy! Ask me about an artist, or shows in your city.")
-        .shouldEndSession(false, helpText)
+        .shouldEndSession(false, "Say help if you need help or exit any time to exit. What artist would you like to hear about?")
         .send();
 });
 
@@ -82,7 +80,7 @@ app.intent('AboutIntent', {
 
         if (!value) {
             res.say("Sorry, I didn't get that artist name. Try again?");
-            return res.shouldEndSession(false, helpText);
+            return res.shouldEndSession(false, "What artist would you like to hear about?");
         } else {
             api.instance().then(function(api) {
                 api.matchArtist(value).then(function(artist) {
@@ -181,94 +179,99 @@ app.intent('ShowsIntent', {
         var city = req.slot('CITY');
         console.log(`app.ShowsIntent: ${city}.`);
 
-        geocoder.geocode(city)
-            .then(function(geoRes) {
-                geocodeResult = _.first(geoRes);
-                if (_.isEmpty(geoRes)) {
-                    res.say(`Sorry, I couldn't find ${city}. Try again?`);
-                    console.log(`app.ShowsIntent: could not geocode '${city}'.`);
-                    res.shouldEndSession(false);
-                    res.send();
-                } else {
-                    console.log(`app.ShowsIntent: geocoded '${city}' to ${geocodeResult.latitude}, ${geocodeResult.longitude}.`);
-                    api.instance().then(function(api) {
-                        api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
-                            console.log(`app.ShowsIntent: found ${results.length} show(s) in '${city}'.`);
+        if (!city) {
+            res.say("Sorry, I didn't get that city name. Try again?");
+            return res.shouldEndSession(false, "What city would you like me to recommend a show in?");
+        } else {
+            geocoder.geocode(city)
+                .then(function(geoRes) {
+                    geocodeResult = _.first(geoRes);
+                    if (_.isEmpty(geoRes)) {
+                        res.say(`Sorry, I couldn't find ${city}. Try again?`);
+                        console.log(`app.ShowsIntent: could not geocode '${city}'.`);
+                        res.shouldEndSession(false);
+                        res.send();
+                    } else {
+                        console.log(`app.ShowsIntent: geocoded '${city}' to ${geocodeResult.latitude}, ${geocodeResult.longitude}.`);
+                        api.instance().then(function(api) {
+                            api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
+                                console.log(`app.ShowsIntent: found ${results.length} show(s) in '${city}'.`);
 
-                            var spokenMessage = [];
-                            var cardMessage = [];
-                            var show = _.first(results);
+                                var spokenMessage = [];
+                                var cardMessage = [];
+                                var show = _.first(results);
 
-                            if (show) {
-                                console.log(`app.ShowsIntent: recommending '${show.name}' (${show.id}) in '${city}'.`);
+                                if (show) {
+                                    console.log(`app.ShowsIntent: recommending '${show.name}' (${show.id}) in '${city}'.`);
 
-                                var showTitle = `${show.name} at ${show.partner.name}`;
-                                spokenMessage.push(`I recommend checking out ${showTitle}.`);
-                                cardMessage.push(showTitle);
+                                    var showTitle = `${show.name} at ${show.partner.name}`;
+                                    spokenMessage.push(`I recommend checking out ${showTitle}.`);
+                                    cardMessage.push(showTitle);
 
-                                spokenMessage.push(show.description);
-                                cardMessage.push(show.description);
+                                    spokenMessage.push(show.description);
+                                    cardMessage.push(show.description);
 
-                                if (show.location) {
-                                    var address = _.compact([
-                                        show.location.address,
-                                        show.location.address_2,
-                                        show.location.city,
-                                        show.location.state,
-                                        show.location.postal_code,
-                                        show.location.phone
-                                    ]).join(' ')
-                                    cardMessage.push(address);
-                                }
-
-                                var smallImageUrl;
-                                var largeImageUrl;
-
-                                if (show.image_urls) {
-                                    smallImageUrl = show.image_urls.small;
-                                    largeImageUrl = show.image_urls.large;
-                                }
-
-                                res.card({
-                                    type: "Standard",
-                                    title: showTitle,
-                                    text: cardMessage.join(' '),
-                                    image: {
-                                        smallImageUrl: smallImageUrl,
-                                        largeImageUrl: largeImageUrl
+                                    if (show.location) {
+                                        var address = _.compact([
+                                            show.location.address,
+                                            show.location.address_2,
+                                            show.location.city,
+                                            show.location.state,
+                                            show.location.postal_code,
+                                            show.location.phone
+                                        ]).join(' ')
+                                        cardMessage.push(address);
                                     }
-                                });
 
-                                var messageText = spokenMessage.join(' ');
-                                console.log(`app.ShowsIntent: ${messageText}`);
-                                res.say(messageText);
-                                res.shouldEndSession(true);
-                            } else {
-                                console.log(`app.ShowsIntent: couldn't find any shows in '${city}'.`);
+                                    var smallImageUrl;
+                                    var largeImageUrl;
+
+                                    if (show.image_urls) {
+                                        smallImageUrl = show.image_urls.small;
+                                        largeImageUrl = show.image_urls.large;
+                                    }
+
+                                    res.card({
+                                        type: "Standard",
+                                        title: showTitle,
+                                        text: cardMessage.join(' '),
+                                        image: {
+                                            smallImageUrl: smallImageUrl,
+                                            largeImageUrl: largeImageUrl
+                                        }
+                                    });
+
+                                    var messageText = spokenMessage.join(' ');
+                                    console.log(`app.ShowsIntent: ${messageText}`);
+                                    res.say(messageText);
+                                    res.shouldEndSession(true);
+                                } else {
+                                    console.log(`app.ShowsIntent: couldn't find any shows in '${city}'.`);
+                                    res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
+                                    res.shouldEndSession(false);
+                                }
+                                res.send();
+                            }).fail(function(error) {
+                                console.log(`app.ShowsIntent: couldn't find any shows in '${city}', ${error}.`);
                                 res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
                                 res.shouldEndSession(false);
-                            }
-                            res.send();
+                                res.send();
+                            });
                         }).fail(function(error) {
-                            console.log(`app.ShowsIntent: couldn't find any shows in '${city}', ${error}.`);
-                            res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
+                            console.log(`app.ShowsIntent: ${error}.`);
+                            res.say("Sorry, I couldn't connect to Artsy. Try again?");
                             res.shouldEndSession(false);
                             res.send();
                         });
-                    }).fail(function(error) {
-                        console.log(`app.ShowsIntent: ${error}.`);
-                        res.say("Sorry, I couldn't connect to Artsy. Try again?");
-                        res.shouldEndSession(false);
-                        res.send();
-                    });
-                }
-            })
-            .catch(function(error) {
-                console.log(`app.ShowsIntent: ${error}.`);
-                res.say(`Sorry, I couldn't find ${city}. Try again?`);
-                res.shouldEndSession(false);
-                res.send();
-            });
+                    }
+                })
+                .catch(function(error) {
+                    console.log(`app.ShowsIntent: ${error}.`);
+                    res.say(`Sorry, I couldn't find ${city}. Try again?`);
+                    res.shouldEndSession(false);
+                    res.send();
+                });
+        }
         return false;
     }
 );
