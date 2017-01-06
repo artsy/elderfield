@@ -24,6 +24,25 @@ describe('artsy alexa', function() {
         });
     });
 
+    it('adds an artist card', function(done) {
+        aboutIntentRequest('Andy Warhol', function(response) {
+            var card = response.card;
+            expect(card).to.not.be.undefined;
+            expect(card.title).to.equal('Andy Warhol');
+            expect(card.type).to.equal('Standard');
+            expect(card.text).to.startWith('American artist Andy Warhol was born in Pittsburgh in 1928 and died in 1987. Obsessed with celebrity, ');
+            if (card.image.largeImageUrl) {
+                expect(card.image.largeImageUrl).to.startWith('https://');
+                expect(card.image.largeImageUrl).to.endWith('/large.jpg');
+            }
+            if (card.image.smallImageUrl) {
+                expect(card.image.smallImageUrl).to.startWith('https://');
+                expect(card.image.smallImageUrl).to.endWith('/four_thirds.jpg');
+            }
+            done();
+        });
+    });
+
     it('properly joins dates and places', function(done) {
         aboutIntentRequest('Norman Rockwell', function(response) {
             expect(response.outputSpeech.ssml).to.startWith('<speak>American artist Norman Rockwell was born in New York in 1894 and died in  1978');

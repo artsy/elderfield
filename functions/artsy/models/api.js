@@ -53,7 +53,7 @@ Api.prototype.findShows = function(lat, lon) {
     var api = this;
     var deferred = Q.defer();
     // TODO: use APIv2 /shows when it supports near param
-    api.get('/v1/shows', { near: [lat,lon].join(','), sort: '-featured,-end_at', size: 5 }).then(function(results) {
+    api.get('/v1/shows', { near: [lat,lon].join(','), sample: 1, sort: '-featured,-end_at', size: 1 }).then(function(results) {
         if (results) {
             deferred.resolve(results);
         } else {

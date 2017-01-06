@@ -2,7 +2,21 @@ AMAZON.StopIntent	stop
 AMAZON.CancelIntent	cancel
 AMAZON.HelpIntent	help
 AboutIntent	about {VALUE}
-ShowsIntent	for shows in {CITY}
-ShowsIntent	for current shows in {CITY}
-ShowsIntent	for shows around {CITY}
-ShowsIntent	for current shows around {CITY}
+ShowsIntent	show in {CITY}
+ShowsIntent	for show in {CITY}
+ShowsIntent	to recommend show in {CITY}
+ShowsIntent	a show in {CITY}
+ShowsIntent	for a show in {CITY}
+ShowsIntent	to recommend a show in {CITY}
+ShowsIntent	current show in {CITY}
+ShowsIntent	for current show in {CITY}
+ShowsIntent	to recommend current show in {CITY}
+ShowsIntent	show around {CITY}
+ShowsIntent	for show around {CITY}
+ShowsIntent	to recommend show around {CITY}
+ShowsIntent	a show around {CITY}
+ShowsIntent	for a show around {CITY}
+ShowsIntent	to recommend a show around {CITY}
+ShowsIntent	current show around {CITY}
+ShowsIntent	for current show around {CITY}
+ShowsIntent	to recommend current show around {CITY}

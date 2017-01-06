@@ -89,13 +89,14 @@ app.intent('AboutIntent', {
                     if (value == artist.name) {
                         console.log(`app.AboutIntent: matched ${artist.name}.`);
                     } else {
-                        console.log(`app.AboutIntent: matched '${value}' with '${artist.name}'.`);
+                        console.log(`app.AboutIntent: matched '${value}' with '${artist.name}' (${artist.id}).`);
                     }
 
-                    var message = []
+                    var spokenMessage = [];
+                    var cardMessage = [];
 
                     if (artist.hometown || artist.birthday) {
-                        message.push(_.compact([
+                        var artistIntro = _.compact([
                             artist.nationality ? artist.nationality : 'The',
                             "artist",
                             artist.name,
@@ -103,18 +104,23 @@ app.intent('AboutIntent', {
                             artist.hometown ? `in ${_.first(artist.hometown.split(','))}` : null,
                             artist.birthday ? `in ${_.last(artist.birthday.split(','))}` : null,
                             artist.deathday ? `and died in ${_.last(artist.deathday.split(','))}` : null
-                        ]).join(' ') + '.');
+                        ]).join(' ') + '.';
+                        spokenMessage.push(artistIntro);
+                        cardMessage.push(artistIntro);
                     }
 
                     var artistBio = artist.blurb || artist.biography;
                     if (artistBio) {
+                        artistBio = removeMd(artistBio);
+                        cardMessage.push(artistBio);
+
                         // use the first 3 sentences
-                        artistBio = artistBio.split('.').splice(0, 2).join('.') + '.';
-                        message.push(artistBio);
+                        var shortArtistBio = artistBio.split('.').splice(0, 2).join('.') + '.';
+                        spokenMessage.push(shortArtistBio);
                     }
 
-                    if (message.length > 0) {
-                        var messageText = removeMd(message.join(' '));
+                    if (spokenMessage.length > 0) {
+                        var messageText = spokenMessage.join(' ');
                         console.log(`app.AboutIntent: ${messageText}`);
                         res.say(messageText);
                         res.shouldEndSession(true);
@@ -122,6 +128,26 @@ app.intent('AboutIntent', {
                         console.log(`app.AboutIntent: don't know much about ${value}.`);
                         res.say(`Sorry, I don't know much about ${value}. Try again?`);
                         res.shouldEndSession(false);
+                    }
+
+                    if (cardMessage.length > 0) {
+                        var largeImageUrl;
+                        var smallImageUrl;
+
+                        if (artist.image_urls) {
+                            smallImageUrl = artist.image_urls.four_thirds;
+                            largeImageUrl = artist.image_urls.large;
+                        }
+
+                        res.card({
+                            type: "Standard",
+                            title: artist.name,
+                            text: cardMessage.join(' '),
+                            image: {
+                                smallImageUrl: smallImageUrl,
+                                largeImageUrl: largeImageUrl
+                            }
+                        });
                     }
 
                     res.send();
@@ -148,7 +174,7 @@ app.intent('ShowsIntent', {
             "CITY": "AMAZON.US_CITY"
         },
         "utterances": [
-            "for {|current} shows {in|around} {-|CITY}"
+            "{|for|to recommend} {|a|current} show {in|around} {-|CITY}"
         ]
     },
     function(req, res) {
@@ -168,13 +194,52 @@ app.intent('ShowsIntent', {
                     api.instance().then(function(api) {
                         api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
                             console.log(`app.ShowsIntent: found ${results.length} show(s) in '${city}'.`);
-                            var intro = `Current exhibitions around ${city}`
-                            var message = []
-                            _.each(results, function(show) {
-                                message.push(`${show.name} at ${show.partner.name}.`)
-                            })
-                            if (message.length > 0) {
-                                var messageText = `${intro}: ${message.join(' ')}`;
+
+                            var spokenMessage = [];
+                            var cardMessage = [];
+                            var show = _.first(results);
+
+                            if (show) {
+                                console.log(`app.ShowsIntent: recommending '${show.name}' (${show.id}) in '${city}'.`);
+
+                                var showTitle = `${show.name} at ${show.partner.name}`;
+                                spokenMessage.push(`I recommend checking out ${showTitle}.`);
+                                cardMessage.push(showTitle);
+
+                                spokenMessage.push(show.description);
+                                cardMessage.push(show.description);
+
+                                if (show.location) {
+                                    var address = _.compact([
+                                        show.location.address,
+                                        show.location.address_2,
+                                        show.location.city,
+                                        show.location.state,
+                                        show.location.postal_code,
+                                        show.location.phone
+                                    ]).join(' ')
+                                    cardMessage.push(address);
+                                }
+
+                                var smallImageUrl;
+                                var largeImageUrl;
+
+                                if (show.image_urls) {
+                                    smallImageUrl = show.image_urls.small;
+                                    largeImageUrl = show.image_urls.large;
+                                }
+
+                                res.card({
+                                    type: "Standard",
+                                    title: showTitle,
+                                    text: cardMessage.join(' '),
+                                    image: {
+                                        smallImageUrl: smallImageUrl,
+                                        largeImageUrl: largeImageUrl
+                                    }
+                                });
+
+                                var messageText = spokenMessage.join(' ');
                                 console.log(`app.ShowsIntent: ${messageText}`);
                                 res.say(messageText);
                                 res.shouldEndSession(true);

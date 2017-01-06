@@ -2,6 +2,8 @@
 
 ### 0.3.0 (Next)
 
+* [#50](https://github.com/artsy/elderfield/pull/50): Add cards for artists and shows - [@dblock](https://github.com/dblock).
+* [#50](https://github.com/artsy/elderfield/pull/50): The skill now returns one (recommended) show, not multiple - [@dblock](https://github.com/dblock).
 * [#45](https://github.com/artsy/elderfield/pull/45), [#34](https://github.com/artsy/elderfield/issues/34): Log all lookups and messages - [@dblock](https://github.com/dblock).
 * [#43](https://github.com/artsy/elderfield/pull/43): Truncate artist bio to the first 3 sentences - [@dblock](https://github.com/dblock).
 * [#42](https://github.com/artsy/elderfield/pull/42): Added Danger.js, nag about CHANGELOG being updated - [@dblock](https://github.com/dblock).
