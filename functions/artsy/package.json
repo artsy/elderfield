@@ -1,32 +1,32 @@
 {
-    "name": "artsy",
-    "version": "0.3.0",
-    "description": "An Artsy Alexa skill.",
-    "main": "index.js",
-    "license": "MIT",
-    "author": {
-        "name": "Art.sy Inc.",
-        "email": "dev@artsy.net",
-        "url": "http://artsy.github.io"
-    },
-    "contributors": [{
-        "name": "Daniel Doubrovkine",
-        "email": "db@artsy.net",
-        "url": "https://twitter.com/dblockdotorg"
-    }, {
-        "name": "Ashkan Nasseri",
-        "email": "ashkan@artsy.net",
-        "url": "https://twitter.com/ashkinas"
-    }],
-    "alexa": {
-        "applicationId": "amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
-    },
-    "dependencies": {
-        "q": "1.4.1",
-        "alexa-app": "^2.4.0",
-        "superagent": "2.3.0",
-        "underscore": "1.8.3",
-        "remove-markdown": "0.1.0",
-        "node-geocoder": "^3.15.2"
-    }
+  "name": "artsy",
+  "version": "0.3.0",
+  "description": "An Artsy Alexa skill.",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Art.sy Inc.",
+    "email": "dev@artsy.net",
+    "url": "http://artsy.github.io"
+  },
+  "contributors": [{
+    "name": "Daniel Doubrovkine",
+    "email": "db@artsy.net",
+    "url": "https://twitter.com/dblockdotorg"
+  }, {
+    "name": "Ashkan Nasseri",
+    "email": "ashkan@artsy.net",
+    "url": "https://twitter.com/ashkinas"
+  }],
+  "alexa": {
+    "applicationId": "amzn1.echo-sdk-ams.app.999999-9999-9999-9999-999999999999"
+  },
+  "dependencies": {
+    "q": "1.4.1",
+    "alexa-app": "^2.4.0",
+    "superagent": "2.3.0",
+    "underscore": "1.8.3",
+    "remove-markdown": "0.1.0",
+    "node-geocoder": "^3.15.2"
+  }
 }
