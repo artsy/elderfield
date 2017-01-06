@@ -18,7 +18,7 @@ describe('artsy alexa', function() {
     it('speaks about an artist', function(done) {
         aboutIntentRequest('Andy Warhol', function(response) {
             expect(response.outputSpeech.ssml).to.startWith('<speak>American artist Andy Warhol was born in Pittsburgh in 1928 and died in 1987. Obsessed with celebrity, ');
-            expect(response.outputSpeech.ssml).to.endWith('taken up by major contemporary artists Richard Prince, Takashi Murakami, and Jeff Koons, among countless others.</speak>');
+            expect(response.outputSpeech.ssml).to.endWith('silk-screen printmaking to achieve his characteristic hard edges and flat areas of color.</speak>');
             expect(response.shouldEndSession).to.equal(true);
             done();
         });

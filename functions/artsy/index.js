@@ -99,8 +99,11 @@ app.intent('AboutIntent', {
                         ]).join(' '));
                     }
 
-                    if (artist.blurb || artist.biography) {
-                        message.push(artist.blurb || artist.biography);
+                    var artistBio = artist.blurb || artist.biography;
+                    if (artistBio) {
+                        // use the first 3 sentences
+                        artistBio = artistBio.split(".").splice(0, 2).join(".") + ".";
+                        message.push(artistBio);
                     }
 
                     if (message.length > 0) {
