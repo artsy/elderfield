@@ -77,7 +77,7 @@ app.intent('AboutIntent', {
     },
     function(req, res) {
         var value = req.slot('VALUE');
-        console.log('app.AboutIntent: ' + value);
+        console.log(`app.AboutIntent: ${value}.`);
 
         if (!value) {
             res.say("Sorry, I didn't get that artist name. Try again?");
@@ -85,6 +85,12 @@ app.intent('AboutIntent', {
         } else {
             api.instance().then(function(api) {
                 api.matchArtist(value).then(function(artist) {
+                    if (value == artist.name) {
+                        console.log(`app.AboutIntent: matched ${artist.name}.`);
+                    } else {
+                        console.log(`app.AboutIntent: matched '${value}' with '${artist.name}'.`);
+                    }
+
                     var message = []
 
                     if (artist.hometown || artist.birthday) {
@@ -96,31 +102,36 @@ app.intent('AboutIntent', {
                             artist.hometown ? `in ${_.first(artist.hometown.split(','))}` : null,
                             artist.birthday ? `in ${_.last(artist.birthday.split(','))}` : null,
                             artist.deathday ? `and died in ${_.last(artist.deathday.split(','))}` : null
-                        ]).join(' '));
+                        ]).join(' ') + '.');
                     }
 
                     var artistBio = artist.blurb || artist.biography;
                     if (artistBio) {
                         // use the first 3 sentences
-                        artistBio = artistBio.split(".").splice(0, 2).join(".") + ".";
+                        artistBio = artistBio.split('.').splice(0, 2).join('.') + '.';
                         message.push(artistBio);
                     }
 
                     if (message.length > 0) {
-                        res.say(removeMd(message.join('. ')));
+                        var messageText = removeMd(message.join(' '));
+                        console.log(`app.AboutIntent: ${messageText}`);
+                        res.say(messageText);
                         res.shouldEndSession(true);
                     } else {
+                        console.log(`app.AboutIntent: don't know much about ${value}.`);
                         res.say(`Sorry, I don't know much about ${value}. Try again?`);
                         res.shouldEndSession(false);
                     }
 
                     res.send();
                 }).fail(function(error) {
+                    console.log(`app.AboutIntent: couldn't find an artist ${value}.`);
                     res.say(`Sorry, I couldn't find an artist ${value}. Try again?`);
                     res.shouldEndSession(false);
                     res.send();
                 });
             }).fail(function(error) {
+                console.log(`app.AboutIntent: ${error}.`);
                 res.say("Sorry, I couldn't connect to Artsy. Try again?");
                 res.shouldEndSession(false);
                 res.send();
@@ -141,46 +152,53 @@ app.intent('ShowsIntent', {
     },
     function(req, res) {
         var city = req.slot('CITY');
-        console.log('app.ShowsIntent: ' + city);
+        console.log(`app.ShowsIntent: ${city}.`);
 
         geocoder.geocode(city)
             .then(function(geoRes) {
                 geocodeResult = _.first(geoRes);
                 if (_.isEmpty(geoRes)) {
                     res.say(`Sorry, I couldn't find ${city}. Try again?`);
-                    console.log(`app.ShowsIntent: could not geocode city: ${city}.`);
+                    console.log(`app.ShowsIntent: could not geocode '${city}'.`);
                     res.shouldEndSession(false);
                     res.send();
                 } else {
-                    console.log(`app.ShowsIntent: fetching shows for: ${city}.`);
+                    console.log(`app.ShowsIntent: geocoded '${city}' to ${geocodeResult.latitude}, ${geocodeResult.longitude}.`);
                     api.instance().then(function(api) {
                         api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
+                            console.log(`app.ShowsIntent: found ${results.length} show(s) in '${city}'.`);
                             var intro = `Current exhibitions around ${city}`
                             var message = []
                             _.each(results, function(show) {
-                                message.push(`${show.name} at ${show.partner.name}`)
+                                message.push(`${show.name} at ${show.partner.name}.`)
                             })
                             if (message.length > 0) {
-                                res.say(`${intro}: ${message.join('. ')}`);
+                                var messageText = `${intro}: ${message.join(' ')}`;
+                                console.log(`app.ShowsIntent: ${messageText}`);
+                                res.say(messageText);
                                 res.shouldEndSession(true);
                             } else {
+                                console.log(`app.ShowsIntent: couldn't find any shows in '${city}'.`);
                                 res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
                                 res.shouldEndSession(false);
                             }
                             res.send();
                         }).fail(function(error) {
+                            console.log(`app.ShowsIntent: couldn't find any shows in '${city}', ${error}.`);
                             res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
                             res.shouldEndSession(false);
                             res.send();
                         });
                     }).fail(function(error) {
+                        console.log(`app.ShowsIntent: ${error}.`);
                         res.say("Sorry, I couldn't connect to Artsy. Try again?");
                         res.shouldEndSession(false);
                         res.send();
                     });
                 }
             })
-            .catch(function(err) {
+            .catch(function(error) {
+                console.log(`app.ShowsIntent: ${error}.`);
                 res.say(`Sorry, I couldn't find ${city}. Try again?`);
                 res.shouldEndSession(false);
                 res.send();
