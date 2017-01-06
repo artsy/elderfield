@@ -18,8 +18,7 @@
         "danger": "./node_modules/.bin/danger"
     },
     "dependencies": {
-        "alexa-app-server": "2.2.4",
-        "node-geocoder": "^3.15.2"
+        "alexa-app-server": "2.2.4"
     },
     "devDependencies": {
         "mocha": "3.1.2",
