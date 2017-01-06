@@ -4,4 +4,3 @@ chai.use(require('chai-string'));
 chai.use(require('chai-http'));
 
 server = require('../server');
-
