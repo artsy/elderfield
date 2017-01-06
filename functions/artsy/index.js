@@ -197,7 +197,7 @@ app.intent('ShowsIntent', {
 
                             var spokenMessage = [];
                             var cardMessage = [];
-                            var show = _.sample(results);
+                            var show = _.first(results);
 
                             if (show) {
                                 console.log(`app.ShowsIntent: recommending '${show.name}' (${show.id}) in '${city}'.`);
