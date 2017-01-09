@@ -2,6 +2,7 @@
 
 ### 0.3.1 (Next)
 
+* [#54](https://github.com/artsy/elderfield/pull/54): Added test code coverage - [@dblock](https://github.com/dblock).
 * Your contribution here.
 
 ### 0.3.0 (2017/1/9)

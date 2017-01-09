@@ -22,5 +22,9 @@ deploy: build
 test: build
 	ENV=test $(KEYS) ./node_modules/mocha/bin/mocha
 
+# Test
+coverage: build
+	ENV=test $(KEYS) npm run coverage
+
 production-deploy: build
 	apex deploy --env=production

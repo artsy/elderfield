@@ -1,6 +1,7 @@
 # Elderfield
 
 [![Build Status](https://travis-ci.org/artsy/elderfield.svg?branch=master)](https://travis-ci.org/artsy/elderfield)
+[![Coverage Status](https://coveralls.io/repos/github/artsy/elderfield/badge.svg?branch=master)](https://coveralls.io/github/artsy/elderfield?branch=master)
 
 [![](images/echo-dot-2nd-gen.jpg)](https://developer.amazon.com/alexa)
 
