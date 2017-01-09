@@ -1,6 +1,6 @@
 {
   "name": "artsy",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An Artsy Alexa skill.",
   "main": "index.js",
   "license": "MIT",

@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.3.1 (Next)
+
+* Your contribution here.
+
 ### 0.3.0 (2017/1/9)
 
 * [#50](https://github.com/artsy/elderfield/pull/50): Add cards for artists and shows - [@dblock](https://github.com/dblock).
