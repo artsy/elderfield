@@ -33,12 +33,14 @@ Commit your changes.
 ```
 git add CHANGELOG.md
 git commit -m "Version 0.4.1 is live."
+git push origin master
 ```
 
 Tag the release.
 
 ```
 git tag v0.4.1
+git push --tags
 ```
 
 #### Prepare for the Next Developer Iteration
@@ -58,10 +60,5 @@ Commit your changes.
 ```
 git add CHANGELOG.md functions/artsy/package.json
 git commit -m "Preparing for next development iteration, 0.4.2."
-```
-
-Push everything.
-
-```
-git push --tags
+git push origin master
 ```
