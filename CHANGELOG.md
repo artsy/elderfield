@@ -1,6 +1,6 @@
 ## Changelog
 
-### 0.3.0 (Next)
+### 0.3.0 (2017/1/9)
 
 * [#50](https://github.com/artsy/elderfield/pull/50): Add cards for artists and shows - [@dblock](https://github.com/dblock).
 * [#50](https://github.com/artsy/elderfield/pull/50): The skill now returns one (recommended) show, not multiple - [@dblock](https://github.com/dblock).
@@ -11,7 +11,6 @@
 * [#40](https://github.com/artsy/elderfield/pull/40): Fix: development mode server and build - [@dblock](https://github.com/dblock).
 * [#46](https://github.com/artsy/elderfield/pull/46), [#30](https://github.com/artsy/elderfield/issues/30): Added version information to logs and [RELEASING](RELEASING.md) instructions - [@dblock](https://github.com/dblock).
 * [#52](https://github.com/artsy/elderfield/pull/52): Fix: handle Alexa not understanding a city name - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 0.2.0 (2017/01/03)
 
