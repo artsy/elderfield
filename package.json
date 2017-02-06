@@ -19,7 +19,7 @@
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec"
   },
   "dependencies": {
-    "alexa-app-server": "2.2.4"
+    "alexa-app-server": "3.0.0"
   },
   "devDependencies": {
     "mocha": "3.1.2",
