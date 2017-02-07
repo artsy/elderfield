@@ -20,3 +20,24 @@ ShowsIntent	to recommend a show around {CITY}
 ShowsIntent	current show around {CITY}
 ShowsIntent	for current show around {CITY}
 ShowsIntent	to recommend current show around {CITY}
+PodcastIntent	podcast {NUMBER}
+PodcastIntent	to play podcast {NUMBER}
+PodcastIntent	latest podcast {NUMBER}
+PodcastIntent	to play latest podcast {NUMBER}
+PodcastIntent	podcast number {NUMBER}
+PodcastIntent	to play podcast number {NUMBER}
+PodcastIntent	latest podcast number {NUMBER}
+PodcastIntent	to play latest podcast number {NUMBER}
+PodcastIntent	podcast episode {NUMBER}
+PodcastIntent	to play podcast episode {NUMBER}
+PodcastIntent	latest podcast episode {NUMBER}
+PodcastIntent	to play latest podcast episode {NUMBER}
+PodcastIntent	podcast episode number {NUMBER}
+PodcastIntent	to play podcast episode number {NUMBER}
+PodcastIntent	latest podcast episode number {NUMBER}
+PodcastIntent	to play latest podcast episode number {NUMBER}
+PodcastSummaryIntent	for the summary of podcast {NUMBER}
+PodcastSummaryIntent	for the summary of podcast number {NUMBER}
+PodcastSummaryIntent	for the summary of podcast episode {NUMBER}
+PodcastSummaryIntent	for the summary of podcast episode number {NUMBER}
+PodcastSummaryIntent	for the summary of the latest podcast

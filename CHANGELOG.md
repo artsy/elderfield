@@ -2,6 +2,7 @@
 
 ### 0.3.1 (Next)
 
+* [#56](https://github.com/artsy/elderfield/pull/56): Play and summarize Artsy podcasts - [@dblock](https://github.com/dblock).
 * [#54](https://github.com/artsy/elderfield/pull/54): Added test code coverage - [@dblock](https://github.com/dblock).
 * Your contribution here.
 

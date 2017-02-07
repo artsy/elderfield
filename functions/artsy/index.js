@@ -2,6 +2,7 @@ var alexa = require('alexa-app');
 var app = new alexa.app('artsy');
 var xapp = require('./models/xapp');
 var api = require('./models/api');
+var podcast = require('./models/podcast');
 var _ = require('underscore');
 var removeMd = require('remove-markdown');
 var nodeGeocoder = require('node-geocoder');
@@ -48,6 +49,28 @@ app.intent('AMAZON.CancelIntent', {
   function(req, res) {
     console.log('app.AMAZON.CancelIntent');
     res.say("Find out more at artsy.net. Goodbye.");
+    res.send();
+  }
+);
+
+app.intent('AMAZON.PauseIntent', {},
+  function(req, res) {
+    console.log('app.AMAZON.PauseIntent');
+    res.audioPlayerStop();
+    res.send();
+  }
+);
+
+app.intent('AMAZON.ResumeIntent', {},
+  function(req, res) {
+    console.log('app.AMAZON.ResumeIntent');
+    if (req.context.AudioPlayer.offsetInMilliseconds > 0 && req.context.AudioPlayer.playerActivity === 'STOPPED') {
+      res.audioPlayerPlayStream('REPLACE_ALL', {
+        token: req.context.AudioPlayer.token,
+        url: req.context.AudioPlayer.token, // hack: use token to remember the URL of the stream
+        offsetInMilliseconds: req.context.AudioPlayer.offsetInMilliseconds
+      });
+    }
     res.send();
   }
 );
@@ -150,7 +173,7 @@ app.intent('AboutIntent', {
 
           res.send();
         }).fail(function(error) {
-          console.log(`app.AboutIntent: couldn't find an artist ${value}.`);
+          console.error(`app.AboutIntent: couldn't find an artist ${value}.`);
           res.say(`Sorry, I couldn't find an artist ${value}. Try again?`);
           res.shouldEndSession(false);
           res.send();
@@ -246,19 +269,19 @@ app.intent('ShowsIntent', {
                   res.say(messageText);
                   res.shouldEndSession(true);
                 } else {
-                  console.log(`app.ShowsIntent: couldn't find any shows in '${city}'.`);
+                  console.error(`app.ShowsIntent: couldn't find any shows in '${city}'.`);
                   res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
                   res.shouldEndSession(false);
                 }
                 res.send();
               }).fail(function(error) {
-                console.log(`app.ShowsIntent: couldn't find any shows in '${city}', ${error}.`);
+                console.error(`app.ShowsIntent: couldn't find any shows in '${city}', ${error}.`);
                 res.say(`Sorry, I couldn't find any shows in ${city}. Try again?`);
                 res.shouldEndSession(false);
                 res.send();
               });
             }).fail(function(error) {
-              console.log(`app.ShowsIntent: ${error}.`);
+              console.error(`app.ShowsIntent: ${error}.`);
               res.say("Sorry, I couldn't connect to Artsy. Try again?");
               res.shouldEndSession(false);
               res.send();
@@ -266,12 +289,89 @@ app.intent('ShowsIntent', {
           }
         })
         .catch(function(error) {
-          console.log(`app.ShowsIntent: ${error}.`);
+          console.error(`app.ShowsIntent: ${error}.`);
           res.say(`Sorry, I couldn't find ${city}. Try again?`);
           res.shouldEndSession(false);
           res.send();
         });
     }
+    return false;
+  }
+);
+
+app.intent('PodcastIntent', {
+    "slots": {
+      "NUMBER": "AMAZON.NUMBER"
+    },
+    "utterances": [
+      "{|to play} {|latest} podcast {|number|episode|episode number} {-|NUMBER}"
+    ]
+  },
+  function(req, res) {
+    var podcastNumber = req.slot('NUMBER');
+    var podcastStream = podcast.instance();
+    console.log(`app.PodcastIntent: ${podcastNumber || 'latest'}`);
+    if (podcastNumber && podcastNumber !== "") {
+      podcastStream = podcastStream.getEpisodeStreamById(podcastNumber);
+    } else {
+      podcastStream = podcastStream.getLatestEpisodeStream();
+    }
+
+    podcastStream.then(function(audioMpegEnclosure) {
+      var streamUrl = audioMpegEnclosure.url.replace('http://', 'https://'); // SSL required by Amazon, available on SoundCloud
+      var stream = {
+        url: streamUrl,
+        token: streamUrl,
+        offsetInMilliseconds: 0
+      }
+      res.audioPlayerPlayStream('REPLACE_ALL', stream);
+      console.log(`app.PodcastIntent: ${podcastNumber || 'latest'}, streaming ${stream.url}.`);
+      res.send();
+    }).catch(function(error) {
+      console.error(`app.PodcastIntent: ${podcastNumber || 'latest'}, ${error}.`);
+      if (podcastNumber) {
+        res.say(`Sorry, I couldn't find Artsy podcast number ${podcastNumber}. Try again?`);
+      } else {
+        res.say(`Sorry, I couldn't find the latest Artsy podcast. Try again?`);
+      }
+      res.shouldEndSession(false);
+      res.send();
+    });
+
+    return false;
+  }
+);
+
+app.intent('PodcastSummaryIntent', {
+    "slots": {
+      "NUMBER": "AMAZON.NUMBER"
+    },
+    "utterances": [
+      "for the summary of podcast {|number|episode|episode number} {-|NUMBER}",
+      "for the summary of the latest podcast"
+    ]
+  },
+  function(req, res) {
+    var podcastNumber = req.slot('NUMBER');
+    var podcastInfo = podcast.instance();
+    console.log(`app.PodcastSummaryIntent: ${podcastNumber || 'latest'}`);
+    if (podcastNumber && podcastNumber !== "") {
+      podcastInfo = podcastInfo.getEpisodeById(podcastNumber);
+    } else {
+      podcastInfo = podcastInfo.getLatestEpisode();
+    }
+
+    podcastInfo.then(function(episode) {
+      res.say(`Artsy podcast episode ${episode.title.replace('No. ', '')}. ${episode.description}`);
+      console.log(`app.PodcastSummaryIntent: ${podcastNumber}, ${episode.title}.`);
+      res.send();
+    }).catch(function(error) {
+      console.error(`app.PodcastSummaryIntent: ${podcastNumber}, ${error}.`);
+      res.say(`Sorry, I couldn't find podcast number ${podcastNumber}. Try again?`);
+      res.shouldEndSession(false);
+      res.send();
+    });
+
     return false;
   }
 );
