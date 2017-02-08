@@ -39,6 +39,15 @@ This skill adds a card with more information.
 
 ![](images/card-edelman-arts.png)
 
+#### Ask Artsy to play the latest podcast
+
+* Alexa, ask Artsy to play podcast number 13.
+* Alexa, ask Artsy to play the latest podcast.
+* Alexa, ask Artsy for a summary of podcast 13.
+* Alexa, ask Artsy for a summary of the latest podcast.
+
+Plays and summarizes one of [Artsy podcasts](https://soundcloud.com/artsypodcast).
+
 ### Deploying to AWS Lambda
 
 See [DEPLOYMENT](DEPLOYMENT.md).

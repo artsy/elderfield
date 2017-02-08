@@ -9,6 +9,14 @@
          "slots": []
       },
       {
+         "intent": "AMAZON.PauseIntent",
+         "slots": []
+      },
+      {
+         "intent": "AMAZON.ResumeIntent",
+         "slots": []
+      },
+      {
          "intent": "AMAZON.HelpIntent",
          "slots": []
       },
@@ -27,6 +35,24 @@
             {
                "name": "CITY",
                "type": "AMAZON.US_CITY"
+            }
+         ]
+      },
+      {
+         "intent": "PodcastIntent",
+         "slots": [
+            {
+               "name": "NUMBER",
+               "type": "AMAZON.NUMBER"
+            }
+         ]
+      },
+      {
+         "intent": "PodcastSummaryIntent",
+         "slots": [
+            {
+               "name": "NUMBER",
+               "type": "AMAZON.NUMBER"
             }
          ]
       }
