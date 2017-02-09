@@ -16,7 +16,7 @@ describe('artsy alexa', function() {
 
   it('describes podcastSummary by number', function(done) {
     podcastSummaryIntentRequest(13, function(response) {
-      expect(response.outputSpeech.ssml).to.startWith('<speak>Artsy podcast episode 13: We Still Need All-Female Group Shows. With the number of all-female group');
+      expect(response.outputSpeech.ssml).to.startWith('<speak>Artsy podcast episode number 13: We Still Need All-Female Group Shows. With the number of all-female group');
       expect(response.shouldEndSession).to.equal(true);
       done();
     });
@@ -24,8 +24,8 @@ describe('artsy alexa', function() {
 
   it('describes the latest podcast', function(done) {
     podcastSummaryIntentRequest("", function(response) {
-      expect(response.outputSpeech.ssml).to.not.startWith('<speak>Artsy podcast episode 13');
-      expect(response.outputSpeech.ssml).to.startWith('<speak>Artsy podcast episode');
+      expect(response.outputSpeech.ssml).to.not.startWith('<speak>Artsy podcast episode number 13');
+      expect(response.outputSpeech.ssml).to.startWith('<speak>Artsy podcast ');
       expect(response.shouldEndSession).to.equal(true);
       done();
     });

@@ -357,7 +357,7 @@ app.intent('PodcastSummaryIntent', {
     }
 
     return podcastInfo.then(function(episode) {
-      res.say(`Artsy podcast episode ${episode.title.replace('No. ', '')}. ${episode.description}`);
+      res.say(`Artsy podcast ${episode.title.replace('No.', 'episode number')}. ${episode.description}`);
       console.log(`app.PodcastSummaryIntent: ${podcastNumber}, ${episode.title}.`);
       res.send();
     }).catch(function(error) {
