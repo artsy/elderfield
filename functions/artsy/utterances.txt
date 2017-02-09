@@ -36,6 +36,10 @@ PodcastIntent	podcast episode number {NUMBER}
 PodcastIntent	to play podcast episode number {NUMBER}
 PodcastIntent	latest podcast episode number {NUMBER}
 PodcastIntent	to play latest podcast episode number {NUMBER}
+PodcastIntent	latest podcast
+PodcastIntent	to play latest podcast
+PodcastIntent	the latest podcast
+PodcastIntent	to play the latest podcast
 PodcastSummaryIntent	for the summary of podcast {NUMBER}
 PodcastSummaryIntent	for the summary of podcast number {NUMBER}
 PodcastSummaryIntent	for the summary of podcast episode {NUMBER}

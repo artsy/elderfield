@@ -304,7 +304,8 @@ app.intent('PodcastIntent', {
       "NUMBER": "AMAZON.NUMBER"
     },
     "utterances": [
-      "{|to play} {|latest} podcast {|number|episode|episode number} {-|NUMBER}"
+      "{|to play} {|latest} podcast {|number|episode|episode number} {-|NUMBER}",
+      "{|to play} {|the} latest podcast"
     ]
   },
   function(req, res) {

@@ -1,10 +1,13 @@
 ## Changelog
 
-### 0.3.1 (Next)
+### 0.3.2 (Next)
+
+* Your contribution here.
+
+### 0.3.1 (2017/2/9)
 
 * [#56](https://github.com/artsy/elderfield/pull/56): Play and summarize Artsy podcasts - [@dblock](https://github.com/dblock).
 * [#54](https://github.com/artsy/elderfield/pull/54): Added test code coverage - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 ### 0.3.0 (2017/1/9)
 
