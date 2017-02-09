@@ -105,8 +105,8 @@ app.intent('AboutIntent', {
       res.say("Sorry, I didn't get that artist name. Try again?");
       return res.shouldEndSession(false, "What artist would you like to hear about?");
     } else {
-      api.instance().then(function(api) {
-        api.matchArtist(value).then(function(artist) {
+      return api.instance().then(function(api) {
+        return api.matchArtist(value).then(function(artist) {
           if (value == artist.name) {
             console.log(`app.AboutIntent: matched ${artist.name}.`);
           } else {
@@ -178,14 +178,12 @@ app.intent('AboutIntent', {
           res.shouldEndSession(false);
           res.send();
         });
-      }).fail(function(error) {
+      }).catch(function(error) {
         console.log(`app.AboutIntent: ${error}.`);
         res.say("Sorry, I couldn't connect to Artsy. Try again?");
         res.shouldEndSession(false);
         res.send();
       });
-
-      return false;
     }
   }
 );
@@ -206,7 +204,7 @@ app.intent('ShowsIntent', {
       res.say("Sorry, I didn't get that city name. Try again?");
       return res.shouldEndSession(false, "What city would you like me to recommend a show in?");
     } else {
-      geocoder.geocode(city)
+      return geocoder.geocode(city)
         .then(function(geoRes) {
           geocodeResult = _.first(geoRes);
           if (_.isEmpty(geoRes)) {
@@ -216,8 +214,8 @@ app.intent('ShowsIntent', {
             res.send();
           } else {
             console.log(`app.ShowsIntent: geocoded '${city}' to ${geocodeResult.latitude}, ${geocodeResult.longitude}.`);
-            api.instance().then(function(api) {
-              api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
+            return api.instance().then(function(api) {
+              return api.findShows(geocodeResult.latitude, geocodeResult.longitude).then(function(results) {
                 console.log(`app.ShowsIntent: found ${results.length} show(s) in '${city}'.`);
 
                 var spokenMessage = [];
@@ -287,15 +285,13 @@ app.intent('ShowsIntent', {
               res.send();
             });
           }
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
           console.error(`app.ShowsIntent: ${error}.`);
           res.say(`Sorry, I couldn't find ${city}. Try again?`);
           res.shouldEndSession(false);
           res.send();
         });
     }
-    return false;
   }
 );
 
@@ -318,7 +314,7 @@ app.intent('PodcastIntent', {
       podcastStream = podcastStream.getLatestEpisodeStream();
     }
 
-    podcastStream.then(function(audioMpegEnclosure) {
+    return podcastStream.then(function(audioMpegEnclosure) {
       var streamUrl = audioMpegEnclosure.url.replace('http://', 'https://'); // SSL required by Amazon, available on SoundCloud
       var stream = {
         url: streamUrl,
@@ -338,8 +334,6 @@ app.intent('PodcastIntent', {
       res.shouldEndSession(false);
       res.send();
     });
-
-    return false;
   }
 );
 
@@ -362,7 +356,7 @@ app.intent('PodcastSummaryIntent', {
       podcastInfo = podcastInfo.getLatestEpisode();
     }
 
-    podcastInfo.then(function(episode) {
+    return podcastInfo.then(function(episode) {
       res.say(`Artsy podcast episode ${episode.title.replace('No. ', '')}. ${episode.description}`);
       console.log(`app.PodcastSummaryIntent: ${podcastNumber}, ${episode.title}.`);
       res.send();
@@ -372,8 +366,6 @@ app.intent('PodcastSummaryIntent', {
       res.shouldEndSession(false);
       res.send();
     });
-
-    return false;
   }
 );
 
