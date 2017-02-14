@@ -30,7 +30,6 @@ describe('artsy alexa', function() {
         }],
         shouldEndSession: true
       })
-      expect(response.shouldEndSession).to.equal(true);
       done();
     });
   });
@@ -66,6 +65,36 @@ describe('artsy alexa', function() {
         var response = data.response;
         expect(response.directives[0].type).to.equal('AudioPlayer.Stop');
         expect(response.shouldEndSession).to.equal(true);
+        done();
+      });
+  });
+
+  it('resumes podcast', function(done) {
+    var resumeIntentRequest = require('./fixtures/ResumeIntentRequest.json');
+    resumeIntentRequest.context.AudioPlayer.token = "file.mp3";
+    resumeIntentRequest.context.AudioPlayer.offsetInMilliseconds = 123;
+    resumeIntentRequest.context.AudioPlayer.playerActivity = "STOPPED";
+    chai.request(server)
+      .post('/alexa/artsy')
+      .send(resumeIntentRequest)
+      .end(function(err, res) {
+        expect(res.status).to.equal(200);
+        var data = JSON.parse(res.text);
+        var response = data.response;
+        expect(response).to.eql({
+          directives: [{
+            type: 'AudioPlayer.Play',
+            playBehavior: 'REPLACE_ALL',
+            audioItem: {
+              stream: {
+                offsetInMilliseconds: 123,
+                token: "file.mp3",
+                url: "file.mp3"
+              }
+            }
+          }],
+          shouldEndSession: true
+        })
         done();
       });
   });

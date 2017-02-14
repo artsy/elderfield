@@ -24,6 +24,14 @@ describe('artsy alexa', function() {
     });
   });
 
+  it('cannot find any shows in Ancorage', function(done) {
+    showsIntentRequest('Ancorage, Alaska', function(response) {
+      expect(response.outputSpeech.ssml).to.equal("<speak>Sorry, I couldn't find any shows in Ancorage, Alaska. Try again?</speak>");
+      expect(response.shouldEndSession).to.equal(false);
+      done();
+    });
+  });
+
   it('adds a show card', function(done) {
     showsIntentRequest('brooklyn', function(response) {
       var card = response.card;
